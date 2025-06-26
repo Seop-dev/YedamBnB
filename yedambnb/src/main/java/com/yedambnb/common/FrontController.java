@@ -10,35 +10,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedambnb.control.BoardListControl;
+import com.yedambnb.control.CheckIdControl;
+import com.yedambnb.control.LoginControl;
+import com.yedambnb.control.LoginFormControl;
+import com.yedambnb.control.LogoutControl;
+import com.yedambnb.control.MainControl;
+import com.yedambnb.control.RegisterControl;
+import com.yedambnb.control.RegisterFormControl;
 
-
-/*
- * M-V-Control역할.
- * url패턴 - 실행서블릿 관리.
- */
 public class FrontController extends HttpServlet {
-	Map<String, Control> map;
+    Map<String, Control> map;
 
-	public FrontController() {
-		map = new HashMap<String, Control>();
-	}
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        map = new HashMap<>();
 
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// boardList.do - 글목록 출력 기능.
-		// 처리순서가 중요.
-		map.put("/boardList.do", new BoardListControl()); // 글목록.
-	}
+        // 매핑
+        map.put("/registerForm.do", new RegisterFormControl()); // 폼 화면
+        map.put("/register.do", new RegisterControl());         // 가입 처리
+        map.put("/loginForm.do", new LoginFormControl());  // 로그인 화면
+        map.put("/logout.do", new LogoutControl());  // 로그아웃
+        map.put("/checkId.do", new CheckIdControl());   // id중복체크
+        map.put("/login.do", new LoginControl());  // 로그인페이지
+        map.put("/main.do", new MainControl()); // 로그인성공시 보여줄 페이지(임시)
 
-	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// url이 호출(http://localhost:8080/BoardWeb/boardList.do) -> 페이지 호출 -> Control.
-		String uri = req.getRequestURI(); // /BoardWeb/boardList.do
-		String context = req.getContextPath(); // /BoardWeb or /HelloWorld
-		String page = uri.substring(context.length()); // /boardList.do
-		Control sub = map.get(page);
-		sub.exec(req, resp);
 
-	}
+
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String uri = req.getRequestURI();
+        String context = req.getContextPath();
+        String path = uri.substring(context.length());
+
+        Control control = map.get(path);
+        if (control != null) {
+            control.exec(req, resp);
+        } else {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "요청한 페이지를 찾을 수 없습니다.");
+        }
+    }
 }

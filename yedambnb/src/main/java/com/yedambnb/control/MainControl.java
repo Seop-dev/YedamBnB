@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedambnb.common.Control;
 
-public class BoardListControl implements Control {
+public class MainControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		req.getRequestDispatcher("/WEB-INF/jsp/boardList.jsp").forward(req, resp);
+		req.getRequestDispatcher("/user/main.jsp").forward(req, resp);
+		
 	}
 
 }

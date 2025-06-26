@@ -32,7 +32,7 @@ public class FrontController extends HttpServlet {
         map.put("/logout.do", new LogoutControl());  // 로그아웃
         map.put("/checkId.do", new CheckIdControl());   // id중복체크
         map.put("/login.do", new LoginControl());  // 로그인페이지
-        map.put("/main.do", new MainControl()); // 로그인성공시 보여줄 페이지(임시)
+        
 
 
 

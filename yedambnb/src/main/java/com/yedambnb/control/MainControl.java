@@ -13,7 +13,7 @@ public class MainControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		req.getRequestDispatcher("/user/main.jsp").forward(req, resp);
+		req.getRequestDispatcher("/bnb/main.jsp").forward(req, resp);
 		
 	}
 

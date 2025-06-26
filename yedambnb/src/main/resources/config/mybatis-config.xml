@@ -3,30 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <settings>
-    <setting name="mapUnderscoreToCamelCase" value="true"/>
-    <setting name="jdbcTypeForNull" value="NULL"/>
-  </settings>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 
-  <typeAliases>
-    <!-- <typeAlias alias="Board" type="com.yedam.vo.BoardVO"/> -->
-    
-  </typeAliases>
+	<typeAliases>
+		<typeAlias alias="User" type="com.yedambnb.vo.UserVO" />
+		
+		<typeAlias alias="Booking" type="com.yedambnb.vo.BookingVO" />
 
-  <environments default="development">
-    <environment id="development">
-      <transactionManager type="JDBC"/>
-      <dataSource type="POOLED">
-        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-        <property name="username" value="jsp"/>
-        <property name="password" value="jsp"/>
-      </dataSource>
-    </environment>
-  </environments>
+	</typeAliases>
 
-  <mappers>
-    <!-- <mapper resource="com/yedam/mapper/BoardMapper.xml"/> -->
-  </mappers>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver"
+					value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url"
+					value="jdbc:oracle:thin:@localhost:1521:xe" />
+				<property name="username" value="jsp" />
+				<property name="password" value="jsp" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/yedambnb/mapper/UserMapper.xml" />
+		
+		<mapper resource="com/yedambnb/mapper/BookingMapper.xml" />
+	</mappers>
 
 </configuration>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedambnb.mapper.BookingMapper">
+
+   <select id="getBookingsByUserId" resultType="Booking" parameterType="string">
+    SELECT
+        b.booking_id,
+        b.user_no,
+        b.accommodation_id,
+        b.check_in_date,
+        b.check_out_date,
+        b.total_price,         <!-- 예약의 총 가격 -->
+        b.booking_status,
+        a.name,                <!-- [수정] accommodation_name -> name -->
+        a.price_per_night,     <!-- [추가] 1박당 가격 정보 추가 -->
+        (SELECT p.photo_path
+         FROM   tbl_accommodation_photos p
+         WHERE  p.accommodation_id = b.accommodation_id AND ROWNUM = 1) AS photo_path
+    FROM
+        tbl_booking b
+    JOIN
+        tbl_user u ON b.user_no = u.user_no
+    JOIN
+        tbl_accommodations a ON b.accommodation_id = a.accommodation_id
+    WHERE
+        u.user_id = #{userId}
+    ORDER BY
+        b.check_in_date DESC
+  </select>
+
+</mapper>

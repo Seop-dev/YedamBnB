@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.yedambnb.mapper.UserMapper">
+
+  
+  <select id="selectUser" parameterType="string" resultType="com.yedambnb.vo.UserVO">
+    SELECT  user_no,
+            user_id,
+            user_pw,
+            user_name,
+            birth_date,
+            telephone,
+            user_authority
+    FROM    tbl_user
+    WHERE   user_id = #{userId}
+  </select>
+  
+ 
+  <update id="updateUser" parameterType="com.yedambnb.vo.UserVO">
+    UPDATE  tbl_user
+    <set>
+      <if test="userName != null and !userName.equals('')">
+        user_name = #{userName},
+      </if>
+      <if test="telephone != null and !telephone.equals('')">
+        telephone = #{telephone},
+      </if>
+      <if test="birthDate != null">
+        birth_date = #{birthDate},
+      </if>
+      <if test="userPw != null and !userPw.equals('')">
+        user_pw = #{userPw}
+      </if>
+    </set>
+    WHERE   user_no = #{userNo}
+  </update>
+
+</mapper>

@@ -2,7 +2,13 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>yedambnb</display-name>
   
-  
+  <!-- 필터, url패턴. -->
+  <!-- <filter>
+    <filter-name>loginCheck</filter-name>  <filter-class>com.yedam.common.LoginCheckFilter</filter-class> </filter>
+<filter-mapping>
+    <filter-name>loginCheck</filter-name>
+    <url-pattern>*.do</url-pattern> </filter-mapping>
+   -->
   <listener>
     <listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
   </listener>
@@ -28,7 +34,9 @@
   </servlet-mapping>
 
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  <welcome-file>index.htm</welcome-file>
+  <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
 </web-app>

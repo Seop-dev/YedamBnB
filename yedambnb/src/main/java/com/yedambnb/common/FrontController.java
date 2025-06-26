@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedambnb.control.BoardListControl;
+import com.yedambnb.control.BnbListControl;
+import com.yedambnb.control.GetLodgingListControl;
+import com.yedambnb.control.MainControl;
 
 
 /*
@@ -23,14 +25,19 @@ public class FrontController extends HttpServlet {
 	public FrontController() {
 		map = new HashMap<String, Control>();
 	}
-
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		// boardList.do - 글목록 출력 기능.
 		// 처리순서가 중요.
-		map.put("/boardList.do", new BoardListControl()); // 글목록.
+		
+		// ================== 숙소 관련 (신규 추가) ==================
+	    map.put("/main.do", new MainControl());             // 메인 페이지
+	    map.put("/bnbList.do", new BnbListControl());             // 메인 페이지
+	    map.put("/getLodgingList.do", new GetLodgingListControl()); // 숙소 검색 목록
+	    // ========================================================
 	}
-
+	
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// url이 호출(http://localhost:8080/BoardWeb/boardList.do) -> 페이지 호출 -> Control.

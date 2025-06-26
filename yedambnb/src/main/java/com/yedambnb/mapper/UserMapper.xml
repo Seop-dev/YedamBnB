@@ -39,4 +39,27 @@
     WHERE   user_no = #{userNo}
   </update>
 
+  <!-- 회원가입 및 로그인(동원) -->
+  <!-- 회원가입 -->
+  <insert id="insertUser" parameterType="User">
+    INSERT INTO tbl_user (
+      user_no, user_id, user_pw, user_name, birth_date,
+      telephone, user_authority)
+      VALUES ( tbl_user_seq.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{birthDate}, #{telephone}, #{userAuthority} )
+  </insert>
+
+  <!-- 아이디 중복 체크 -->
+  <select id="checkUserId" parameterType="String" resultType="User">
+    SELECT * FROM tbl_user WHERE user_id = #{userId}
+  </select>
+
+  <!-- 로그인 검사 -->
+  <select id="logincheck" parameterType="map" resultType="User">
+    SELECT user_no, user_id, user_pw, user_name, 
+           TO_CHAR(birth_date, 'YYYY-MM-DD') AS birthDate,
+           telephone, user_authority
+    FROM tbl_user
+    WHERE user_id = #{id}
+      AND user_pw = #{pw}
+  </select>
 </mapper>

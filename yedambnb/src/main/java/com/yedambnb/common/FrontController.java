@@ -11,10 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedambnb.control.BnbListControl;
-import com.yedambnb.control.GetLodgingListControl;
-import com.yedambnb.control.MainControl;
 import com.yedambnb.control.BoardListControl;
 import com.yedambnb.control.BookingListControl;
+import com.yedambnb.control.CheckIdControl;
+import com.yedambnb.control.GetLodgingListControl;
+import com.yedambnb.control.LoginControl;
+import com.yedambnb.control.LoginFormControl;
+import com.yedambnb.control.LogoutControl;
+import com.yedambnb.control.MainControl;
+import com.yedambnb.control.RegisterControl;
+import com.yedambnb.control.RegisterFormControl;
 import com.yedambnb.control.UserInfoControl;
 
 public class FrontController extends HttpServlet {
@@ -37,6 +43,12 @@ public class FrontController extends HttpServlet {
 		map.put("/boardList.do", new BoardListControl());
 		map.put("/userInfo.do", new UserInfoControl());
 		map.put("/bookingList.do", new BookingListControl());
+		// =================== 로그인 및 회원등록(동원) ==========================
+        map.put("/registerForm.do", new RegisterFormControl()); // 회원가입 화면
+        map.put("/register.do", new RegisterControl());         // 회원가입 화면에서 데이터 전달 컨트롤
+        map.put("/loginForm.do", new LoginFormControl());  // 로그인 화면
+        map.put("/checkId.do", new CheckIdControl());   // id중복체크
+        map.put("/login.do", new LoginControl());  // 로그인페이지
 	}
 
 	@Override

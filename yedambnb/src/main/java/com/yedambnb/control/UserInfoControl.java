@@ -1,7 +1,7 @@
 package com.yedambnb.control;
 
 import java.io.IOException;
-// import java.io.PrintWriter; // 더 이상 사용하지 않으므로 삭제하거나 그대로 두어도 괜찮습니다.
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +33,8 @@ public class UserInfoControl implements Control {
 			UserVO user = svc.getUser(userId);
 			req.setAttribute("userInfo", user);
 
-			req.getRequestDispatcher("userInfo.tiles").forward(req, resp);
+			// [수정] 이 forward 코드가 누락되었습니다. 새로운 tiles 규칙에 맞게 추가합니다.
+			req.getRequestDispatcher("user/userInfo.tiles").forward(req, resp);
 			
 		} else { // POST 방식일 때
 			req.setCharacterEncoding("UTF-8");
@@ -58,12 +59,9 @@ public class UserInfoControl implements Control {
 				e.printStackTrace();
 			}
 			
-			
 			if(svc.modifyUser(user)) {
-                // 성공 시: result=success 파라미터를 붙여 리다이렉트
                 resp.sendRedirect("userInfo.do?result=success");
             } else {
-                // 실패 시: result=fail 파라미터를 붙여 리다이렉트
                 resp.sendRedirect("userInfo.do?result=fail");
             }
 		}

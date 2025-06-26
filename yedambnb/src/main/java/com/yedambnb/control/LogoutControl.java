@@ -16,7 +16,7 @@ public class LogoutControl implements Control {
     public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false); // 기존 세션 가져오기
         if (session != null) {
-            session.invalidate(); // 세션 종료
+            session.invalidate(); // 세션 종료  ///h
         }
 
         // 로그인 상태 유지 쿠키 제거

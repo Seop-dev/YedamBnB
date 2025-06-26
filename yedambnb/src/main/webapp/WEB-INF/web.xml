@@ -9,6 +9,11 @@
     <filter-name>loginCheck</filter-name>
     <url-pattern>*.do</url-pattern> </filter-mapping>
    -->
+  <context-param>
+    <param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
+    <param-value>/WEB-INF/tiles/tiles.xml</param-value>
+  </context-param>
+  
   <listener>
     <listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
   </listener>

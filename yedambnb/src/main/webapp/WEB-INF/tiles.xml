@@ -3,6 +3,7 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+<<<<<<< HEAD
 	<definition name="myapp.homepage"
 		template="/layouts/classic.jsp">
 		<put-attribute name="title"
@@ -76,3 +77,22 @@
 
 
 </tiles-definitions>
+=======
+
+  <definition name="baseLayout" template="/WEB-INF/layout/template.jsp">
+    <put-attribute name="title" value="Yedam BnB" />
+    <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" /> <put-attribute name="body" value="" />
+  </definition>
+
+  <definition name="userInfo" extends="baseLayout">
+    <put-attribute name="title" value="정보 수정" />
+    <put-attribute name="body" value="/WEB-INF/jsp/userInfo.jsp" />
+  </definition>
+
+  <definition name="bookingList" extends="baseLayout">
+    <put-attribute name="title" value="예약 내역" />
+    <put-attribute name="body" value="/WEB-INF/jsp/booking.jsp" />
+  </definition>
+  
+  </tiles-definitions>
+>>>>>>> branch 'mypage' of https://github.com/Seop-dev/yedambnb.git

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedambnb.control.AddReviewControl;
 import com.yedambnb.control.BnbListControl;
 import com.yedambnb.control.GetLodgingListControl;
 import com.yedambnb.control.MainControl;
@@ -37,6 +38,7 @@ public class FrontController extends HttpServlet {
 		map.put("/boardList.do", new BoardListControl());
 		map.put("/userInfo.do", new UserInfoControl());
 		map.put("/bookingList.do", new BookingListControl());
+		map.put("/addReview.do", new AddReviewControl());
 	}
 
 	@Override

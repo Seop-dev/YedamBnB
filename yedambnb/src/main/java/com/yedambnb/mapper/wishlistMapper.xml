@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedambnb.mapper.WishlistMapper">
+
+  <select id="selectWishlist" parameterType="int" resultType="com.yedambnb.vo.WishlistVO">
+    SELECT
+        w.wishlist_id,
+        w.user_no,
+        w.accommodation_id,
+        w.created_at,
+        a.name,
+        a.price_per_night,
+        (SELECT p.photo_path
+         FROM   tbl_accommodation_photos p
+         WHERE  p.accommodation_id = w.accommodation_id AND ROWNUM = 1) AS photo_path
+    FROM
+        tbl_wishlist w
+    JOIN
+        tbl_accommodations a ON w.accommodation_id = a.accommodation_id
+    WHERE
+        w.user_no = #{userNo}
+    ORDER BY
+        w.created_at DESC
+  </select>
+
+</mapper>

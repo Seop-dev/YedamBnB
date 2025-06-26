@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedambnb.control.BnbListControl;
-import com.yedambnb.control.GetLodgingListControl;
-import com.yedambnb.control.MainControl;
 import com.yedambnb.control.BoardListControl;
 import com.yedambnb.control.BookingListControl;
+import com.yedambnb.control.GetLodgingListControl;
+import com.yedambnb.control.MainControl;
 import com.yedambnb.control.UserInfoControl;
+import com.yedambnb.control.lodgingListControl;
 
 public class FrontController extends HttpServlet {
 	Map<String, Control> map;
@@ -37,6 +38,8 @@ public class FrontController extends HttpServlet {
 		map.put("/boardList.do", new BoardListControl());
 		map.put("/userInfo.do", new UserInfoControl());
 		map.put("/bookingList.do", new BookingListControl());
+		// ============ 숙소단건조회 ===================
+		map.put("/lodgingList.do", new lodgingListControl());
 	}
 
 	@Override

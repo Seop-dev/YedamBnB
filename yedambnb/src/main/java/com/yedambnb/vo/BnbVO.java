@@ -15,4 +15,7 @@ public class BnbVO {
 	// ★★★ 아래 두 필드를 추가해주세요 ★★★
 	private double latitude;  // 위도
 	private double longitude; // 경도
+	
+	// 테이블 통일 필요할꺼같네요
+	// (경준)LodgingVO 사용했습니다.
 }

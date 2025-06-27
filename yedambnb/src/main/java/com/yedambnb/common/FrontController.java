@@ -52,7 +52,7 @@ public class FrontController extends HttpServlet {
 		map.put("/bookingList.do", new BookingListControl());
 		map.put("/addReview.do", new AddReviewControl());
 		// ============ 숙소단건조회 ===================
-		map.put("/lodgingList.do", new lodgingListControl());
+		map.put("/lodgingDetail.do", new lodgingListControl());
 	}
 
 	@Override

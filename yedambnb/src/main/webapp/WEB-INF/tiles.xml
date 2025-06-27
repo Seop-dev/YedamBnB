@@ -66,6 +66,9 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
 	</definition>
 	
+	<definition name="WILDCARD:user/*" extends="user">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
 	
 	<!-- 마지막 -->
 	<definition name="WILDCARD:*/*" extends="user">

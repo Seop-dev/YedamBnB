@@ -2,12 +2,42 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.yedambnb.mapper.BnbMapper">
 
-  <select id="searchBnbList" resultType="com.yedambnb.vo.BnbVO" parameterType="string">
-    SELECT * FROM lodging 
-    WHERE lodging_address LIKE '%' || #{keyword} || '%'
-  </select>
+    <resultMap id="bnbResult" type="com.yedambnb.vo.BnbVO">
+    <id property="lodgingId" column="LODGING_ID" />
+    <result property="lodgingName" column="LODGING_NAME" />
+    <result property="lodgingAddress" column="LODGING_ADDRESS" />
+    <result property="price" column="PRICE" />
+    <result property="maxPpl" column="MAX_PPL" />
+    <result property="lodgingDesc" column="LODGING_DESC" />
+    <result property="lodgingType" column="LODGING_TYPE" />
+    <result property="latitude" column="LATITUDE" />
+    <result property="longitude" column="LONGITUDE" />
+</resultMap>
+
+    <select id="searchBnbListPaging" resultMap="bnbResult">
+        SELECT b.*
+        FROM (SELECT ROWNUM rn, a.*
+              FROM (SELECT * FROM lodging 
+                    WHERE lodging_address LIKE '%' || #{keyword} || '%'
+                    ORDER BY lodging_id DESC) a
+             ) b
+        WHERE b.rn BETWEEN (#{cri.pageNum} - 1) * #{cri.amount} + 1 AND #{cri.pageNum} * #{cri.amount}
+    </select>
   
+    <select id="getTotalCount" resultType="int">
+        SELECT count(*) 
+        FROM lodging
+        WHERE lodging_address LIKE '%' || #{keyword} || '%'
+    </select>
+    
+    <select id="selectListInBounds" resultMap="bnbResult" parameterType="map">
+        SELECT * FROM lodging
+        WHERE latitude IS NOT NULL 
+          AND longitude IS NOT NULL
+          AND latitude BETWEEN #{swLat} AND #{neLat}
+          AND longitude BETWEEN #{swLng} AND #{neLng}
+    </select>
+
 </mapper>

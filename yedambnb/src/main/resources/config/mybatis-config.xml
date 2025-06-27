@@ -4,9 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
-		<setting name="mapUnderscoreToCamelCase" value="true" />
-		<setting name="jdbcTypeForNull" value="NULL" />
-	</settings>
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+    <setting name="jdbcTypeForNull" value="NULL"/>
+    
+    <setting name="logImpl" value="STDOUT_LOGGING"/>
+
+  </settings>
 
 	<typeAliases>
 		<typeAlias alias="User" type="com.yedambnb.vo.UserVO" />
@@ -28,6 +31,8 @@
 	</environments>
 
 	<mappers>
+	<mapper resource="com/yedambnb/mapper/BnbMapper.xml"/>
+  <mapper resource="com/yedambnb/mapper/MemberMapper.xml"/>
 		<mapper resource="com/yedambnb/mapper/UserMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/BnbMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/BookingMapper.xml" />

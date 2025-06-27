@@ -2,7 +2,7 @@ package com.yedambnb.vo;
 
 import lombok.Data;
 
-@Data // Getter, Setter, toString 등을 자동으로 생성해주는 Lombok 어노테이션
+@Data
 public class BnbVO {
 	private int lodgingId;
 	private String lodgingName;
@@ -11,4 +11,8 @@ public class BnbVO {
 	private int maxPpl;
 	private String lodgingDesc;
 	private String lodgingType;
+	
+	// ★★★ 아래 두 필드를 추가해주세요 ★★★
+	private double latitude;  // 위도
+	private double longitude; // 경도
 }

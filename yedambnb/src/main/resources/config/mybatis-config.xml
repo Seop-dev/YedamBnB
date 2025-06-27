@@ -16,7 +16,7 @@
 		<typeAlias alias="Booking" type="com.yedambnb.vo.BookingVO" />
 		<typeAlias alias="MPReview" type="com.yedambnb.vo.MPReviewVO" />
 		<typeAlias alias="Wishlist" type="com.yedambnb.vo.WishlistVO" />
-		<typeAlias alias="LodgingList" type="com.yedambnb.vo.LodgingVO" />
+		<typeAlias alias="Lodging" type="com.yedambnb.vo.LodgingVO" />
 	</typeAliases>
 
 	<environments default="development">
@@ -26,7 +26,7 @@
 				<property name="driver"
 					value="oracle.jdbc.driver.OracleDriver" />
 				<property name="url"
-					value="jdbc:oracle:thin:@localhost:1521:xe" />
+					value="jdbc:oracle:thin:@192.168.0.26:1521:xe" />
 				<property name="username" value="jsp" />
 				<property name="password" value="jsp" />
 			</dataSource>
@@ -41,7 +41,7 @@
 		<mapper resource="com/yedambnb/mapper/BookingMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/MPReviewMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/wishlistMapper.xml" />
-		<mapper resource="com/yedambnb/mapper/lodgingListMapper.xml" />
+		<mapper resource="com/yedambnb/mapper/LodgingDetailMapper.xml" />
 	</mappers>
 
 </configuration>

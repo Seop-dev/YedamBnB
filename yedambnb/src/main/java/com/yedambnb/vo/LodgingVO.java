@@ -4,11 +4,12 @@ import lombok.Data;
 
 @Data
 public class LodgingVO {
-	public int lodgingId;
-	public String description;
-	public String address;
-	public int lat;
-	public int lng;
-	public int pricePerNight;
-	
+    private int lodgingId;
+    private int lodgingNo;
+    private String name;
+    private String description;
+    private String address;
+    private double lat;
+    private double lng;
+    private int pricePerNight;
 }

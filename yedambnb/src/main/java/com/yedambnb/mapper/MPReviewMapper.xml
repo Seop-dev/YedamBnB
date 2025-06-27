@@ -8,16 +8,16 @@
   <insert id="insertReview" parameterType="com.yedambnb.vo.MPReviewVO">
     INSERT INTO TBL_REVIEW (
         REVIEW_ID,
-        USER_NO,
+        USER_ID,
         USER_NAME,
-        ACCOMMODATION_ID,
+        LODGING_NO,
         SCORE,
         COMMENT_TEXT
     ) VALUES (
         review_seq.nextval,
-        #{userNo},
+        #{userId},
         #{userName},
-        #{accommodationId},
+        #{lodgingNo},
         #{score},
         #{commentText}
     )

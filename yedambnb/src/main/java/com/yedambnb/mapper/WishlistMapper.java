@@ -4,9 +4,8 @@ import java.util.List;
 import com.yedambnb.vo.WishlistVO;
 
 public interface WishlistMapper {
-    // 특정 사용자의 위시리스트 목록을 조회하는 메소드
+    // [수정] 파라미터를 다시 int userNo로 되돌립니다.
     public List<WishlistVO> selectWishlist(int userNo);
-    
+
     public int deleteWishlist(int wishlistId);
-    
 }

@@ -8,21 +8,19 @@ import com.yedambnb.common.DataSource;
 import com.yedambnb.mapper.WishlistMapper;
 import com.yedambnb.vo.WishlistVO;
 
-// WishlistService 인터페이스를 '구현'하는 클래스입니다.
 public class WishlistServiceImpl implements WishlistService {
 
     private SqlSession sqlSession = DataSource.getInstance().openSession(true);
     private WishlistMapper mapper = sqlSession.getMapper(WishlistMapper.class);
 
+    // [수정] 인터페이스와 동일하게 파라미터 타입을 String userId로 변경합니다.
     @Override
     public List<WishlistVO> getWishlist(int userNo) {
-
         return mapper.selectWishlist(userNo);
     }
+
     @Override
     public boolean removeWishlist(int wishlistId) {
-        // Mapper의 deleteWishlist를 호출하고,
-        // 성공적으로 1개의 행이 삭제되었으면 true를, 아니면 false를 반환합니다.
         return mapper.deleteWishlist(wishlistId) == 1;
     }
 }

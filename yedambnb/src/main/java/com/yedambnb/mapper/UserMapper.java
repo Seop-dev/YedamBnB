@@ -8,4 +8,5 @@ public interface UserMapper {
 
     // 사용자 정보 수정 (마이페이지에서 이름, 연락처, 생년월일 등 수정)
     public int updateUser(UserVO user);
+    public int deleteUser(int userNo);
 }

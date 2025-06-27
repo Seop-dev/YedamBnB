@@ -15,14 +15,12 @@
 	</nav>
 
 	<div class="booking-list">
-		<%-- 예약 내역이 없을 경우 --%>
 		<c:if test="${empty bookingList}">
 			<p>예약 내역이 없습니다.</p>
 		</c:if>
 
-		<%-- 예약 목록 반복 --%>
 		<c:forEach var="b" items="${bookingList}">
-			<div class="booking-card">
+			<div class="booking-card" data-status="${b.bookingStatus.toLowerCase()}">
 				<img src="${pageContext.request.contextPath}/image/${b.photoPath}" alt="숙소 이미지">
 				<div class="details">
 					<h3>${b.name}</h3>
@@ -36,12 +34,25 @@
 					<c:choose>
 						<c:when test="${b.bookingStatus == 'UPCOMING'}">
 							<span class="status-badge upcoming">UPCOMING</span>
+                            <button type="button" class="btn-card btn-secondary btn-cancel" data-booking-id="${b.bookingId}">취소하기</button>
 						</c:when>
 						<c:when test="${b.bookingStatus == 'PAST'}">
 							<span class="status-badge past">PAST</span>
-							<button type="button" class="btn-primary btn-card btn-review" data-booking-id="${b.bookingId}" data-accommodation-id="${b.accommodationId}">리뷰쓰기</button>
+							<c:choose>
+							    <c:when test="${not empty b.commentText}">
+							        <div class="written-review">
+							        <p> </p>
+							            <strong>내 리뷰:</strong> ★${b.score} ${b.commentText}
+							        </div>
+							    </c:when>
+							    <c:otherwise>
+							        <button type="button" class="btn-card btn-primary btn-review"
+							                data-booking-id="${b.bookingId}" 
+							                data-accommodation-id="${b.accommodationId}">리뷰쓰기</button>
+							    </c:otherwise>
+							</c:choose>
 						</c:when>
-						<c:when test="${b.bookingStatus == 'CANCELED'}">
+                        <c:when test="${b.bookingStatus == 'CANCELED'}">
 							<span class="status-badge canceled">CANCELED</span>
 						</c:when>
 					</c:choose>
@@ -78,19 +89,23 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 탭 필터링 관련 요소 및 함수
     const tabs = document.querySelectorAll('.tabs-nav a');
     const bookingCards = document.querySelectorAll('.booking-card');
+    const reviewModal = document.getElementById('reviewModal');
+    const closeModalButton = reviewModal.querySelector('.modal-close');
+    const reviewForm = document.getElementById('reviewForm');
+
+    // --- 탭 필터링 기능 ---
     function filterBookings(targetStatus) {
         bookingCards.forEach(card => {
-            const statusBadge = card.querySelector('.status-badge');
-            if (statusBadge && statusBadge.textContent.trim().toLowerCase() === targetStatus) {
+            if (card.dataset.status === targetStatus) {
                 card.style.display = 'flex';
             } else {
                 card.style.display = 'none';
             }
         });
     }
+
     tabs.forEach(tab => {
         tab.addEventListener('click', function(event) {
             event.preventDefault();
@@ -99,16 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
             filterBookings(this.dataset.status);
         });
     });
-    if (tabs.length > 0) {
-        tabs[0].click();
-    }
 
-    // 모달 관련 요소 및 이벤트
-    const reviewModal = document.getElementById('reviewModal');
-    const closeModalButton = reviewModal.querySelector('.modal-close');
-    const reviewForm = document.getElementById('reviewForm');
-
-    // '리뷰쓰기' 버튼들에 모달 열기 이벤트 추가
+    // --- 모달창 열기/닫기 기능 ---
     document.querySelectorAll('.btn-review').forEach(button => {
         button.addEventListener('click', function() {
             const bookingId = this.dataset.bookingId;
@@ -118,39 +125,73 @@ document.addEventListener('DOMContentLoaded', function() {
             reviewModal.style.display = 'flex';
         });
     });
+    function closeModal() { reviewModal.style.display = 'none'; }
+    if(closeModalButton) closeModalButton.addEventListener('click', closeModal);
+    reviewModal.addEventListener('click', event => { if (event.target === reviewModal) closeModal(); });
 
-    // 모달 닫기 기능
-    function closeModal() {
-        reviewModal.style.display = 'none';
+    // --- 리뷰 폼 제출(AJAX) 기능 ---
+    if(reviewForm) {
+        reviewForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new URLSearchParams(new FormData(reviewForm));
+            fetch('/yedambnb/addReview.do', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.retCode === 'Success') {
+                    alert('리뷰가 성공적으로 등록되었습니다.');
+                    location.reload();
+                } else {
+                    alert('리뷰 등록에 실패했습니다: ' + (data.message || ''));
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            });
+        });
     }
-    closeModalButton.addEventListener('click', closeModal);
-    reviewModal.addEventListener('click', event => {
-        if (event.target === reviewModal) {
-            closeModal();
-        }
-    });
 
-    // 리뷰 폼 제출(AJAX) 기능
-    reviewForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new URLSearchParams(new FormData(reviewForm));
-        fetch('/yedambnb/addReview.do', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.retCode === 'Success') {
-                alert('리뷰가 성공적으로 등록되었습니다.');
-                location.reload();
-            } else {
-                alert('리뷰 등록에 실패했습니다: ' + (data.message || ''));
-            }
-        })
-        .catch(err => {
-            console.error('Error:', err);
-            alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    // --- 예약 취소(AJAX) 기능 ---
+    document.querySelectorAll('.btn-cancel').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (!confirm('이 예약을 정말로 취소하시겠습니까?')) return;
+
+            const bookingId = this.dataset.bookingId;
+            const cardToCancel = this.closest('.booking-card');
+            const formData = new URLSearchParams();
+            formData.append('bookingId', bookingId);
+
+            fetch('/yedambnb/cancelBooking.do', { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(data => {
+                if (data.retCode === 'Success') {
+                    alert('예약이 취소되었습니다.');
+                    cardToCancel.dataset.status = 'canceled';
+                    const detailsDiv = cardToCancel.querySelector('.details');
+                    // 기존 버튼과 뱃지를 모두 지우고, 새로운 CANCELED 뱃지를 추가합니다.
+                    detailsDiv.querySelector('.status-badge').remove();
+                    detailsDiv.querySelector('.btn-cancel').remove();
+                    detailsDiv.insertAdjacentHTML('beforeend', '<span class="status-badge canceled">CANCELED</span>');
+                    
+                    document.querySelector('.tabs-nav a.active').click();
+                } else {
+                    alert('예약 취소에 실패했습니다.');
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('오류가 발생했습니다.');
+            });
         });
     });
+
+    // --- 페이지 초기화 ---
+    if (tabs.length > 0) {
+        tabs[0].click();
+    }
 });
 </script>

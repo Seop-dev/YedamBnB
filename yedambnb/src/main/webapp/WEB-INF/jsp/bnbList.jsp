@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style>
     .content-section { padding-top: 120px; }
@@ -18,21 +19,43 @@
                             <h2 id="list-title" class="font-weight-bold text-primary heading">'${keyword eq "" ? "전체" : keyword}' 검색 결과 (${pageDTO.total}건)</h2>
                         </div>
                     </div>
+                    
                     <div class="row" id="bnb-list-area">
-                        <c:forEach var="bnb" items="${bnbList}"><div class="col-md-6"><div class="property-item mb-30"><a href="#" class="img"><img src="images/img_1.jpg" alt="Image" class="img-fluid" /></a><div class="property-content"><div class="price mb-2"><span>${bnb.price}원 / 박</span></div><div><span class="d-block mb-2 text-black-50">${bnb.lodgingName}</span><span class="city d-block mb-3">${bnb.lodgingAddress}</span><a href="#" class="btn btn-primary py-2 px-3">상세보기</a></div></div></div></div></c:forEach>
+                        <%-- 최초 로드 시 JSTL이 그리는 목록 --%>
+                        <c:forEach var="bnb" items="${bnbList}">
+                            <div class="col-md-6">
+                                <div class="property-item mb-30">
+                                    <a href="getBnb.do?lodging_no=${bnb.lodgingNo}" class="img"><img src="images/img_1.jpg" alt="Image" class="img-fluid" /></a>
+                                    <div class="property-content">
+                                        <div class="price mb-2"><span><fmt:formatNumber value="${bnb.price}" pattern="#,###" />원 / 박</span></div>
+                                        <div>
+                                            <span class="d-block mb-2 text-black-50">${bnb.lodgingName}</span>
+                                            <span class="city d-block mb-3">${bnb.lodgingAddress}</span>
+                                            <a href="getBnb.do?lodging_no=${bnb.lodgingNo}" class="btn btn-primary py-2 px-3">상세보기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </div>
+
                     <div class="row align-items-center py-5">
                         <div class="col-lg-12">
-                            <nav id="pagination-nav" aria-label="Page navigation"><ul class="pagination justify-content-center">
-                                <c:if test="${pageDTO.prev}"><li class="page-item"><a class="page-link" href="bnbList.do?pageNum=${pageDTO.startPage - 1}&keyword=${keyword}" aria-label="Previous"><span aria-hidden="true">&lt;</span></a></li></c:if>
-                                <c:forEach var="num" begin="${pageDTO.startPage}" end="${pageDTO.endPage}"><li class="page-item ${pageDTO.cri.pageNum == num ? 'active' : ''}"><a class="page-link" href="bnbList.do?pageNum=${num}&keyword=${keyword}">${num}</a></li></c:forEach>
-                                <c:if test="${pageDTO.next}"><li class="page-item"><a class="page-link" href="bnbList.do?pageNum=${pageDTO.endPage + 1}&keyword=${keyword}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li></c:if>
-                            </ul></nav>
+                            <nav id="pagination-nav" aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <c:if test="${pageDTO.prev}"><li class="page-item"><a class="page-link" href="bnbList.do?pageNum=${pageDTO.startPage - 1}&keyword=${keyword}" aria-label="Previous"><span aria-hidden="true">&lt;</span></a></li></c:if>
+                                    <c:forEach var="num" begin="${pageDTO.startPage}" end="${pageDTO.endPage}"><li class="page-item ${pageDTO.cri.pageNum == num ? 'active' : ''}"><a class="page-link" href="bnbList.do?pageNum=${num}&keyword=${keyword}">${num}</a></li></c:forEach>
+                                    <c:if test="${pageDTO.next}"><li class="page-item"><a class="page-link" href="bnbList.do?pageNum=${pageDTO.endPage + 1}&keyword=${keyword}" aria-label="Next"><span aria-hidden="true">&gt;</span></a></li></c:if>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5"><div id="map" class="map-container"></div></div>
+
+            <div class="col-lg-5">
+                <div id="map" class="map-container"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -52,7 +75,7 @@
             currentOverlays = [];
             if (!list || list.length === 0) return;
 
-            const newBounds = new kakao.maps.LatLngBounds(); // 'newBounds'로 선언
+            const newBounds = new kakao.maps.LatLngBounds();
             
             list.forEach(bnb => {
                 if (bnb.latitude && bnb.longitude) {
@@ -60,9 +83,6 @@
                     const content = `<div class="custom-overlay">₩\${bnb.price.toLocaleString()}</div>`;
                     const overlay = new kakao.maps.CustomOverlay({ map: map, position: position, content: content, yAnchor: 1 });
                     currentOverlays.push(overlay);
-                    
-                    // ★★★ 수정된 부분: bounds -> newBounds ★★★
-                    // 이전에 bounds.extend()로 잘못되어 있었던 오타를 수정합니다.
                     newBounds.extend(position);
                 }
             });
@@ -89,7 +109,7 @@
             listTitle.innerText = `현재 지도에 표시된 숙소 (\${list.length})건`;
 
             list.forEach(bnb => {
-                const listItemHtml = `<div class="col-md-6"><div class="property-item mb-30"><a href="#" class="img"><img src="images/img_1.jpg" alt="Image" class="img-fluid" /></a><div class="property-content"><div class="price mb-2"><span>\${bnb.price.toLocaleString()}원 / 박</span></div><div><span class="d-block mb-2 text-black-50">\${bnb.lodgingName}</span><span class="city d-block mb-3">\${bnb.lodgingAddress}</span><a href="#" class="btn btn-primary py-2 px-3">상세보기</a></div></div></div></div>`;
+                const listItemHtml = `<div class="col-md-6"><div class="property-item mb-30"><a href="getBnb.do?lodging_no=\${bnb.lodgingNo}" class="img"><img src="images/img_1.jpg" alt="Image" class="img-fluid" /></a><div class="property-content"><div class="price mb-2"><span>\${bnb.price.toLocaleString()}원 / 박</span></div><div><span class="d-block mb-2 text-black-50">\${bnb.lodgingName}</span><span class="city d-block mb-3">\${bnb.lodgingAddress}</span><a href="getBnb.do?lodging_no=\${bnb.lodgingNo}" class="btn btn-primary py-2 px-3">상세보기</a></div></div></div></div>`;
                 listArea.innerHTML += listItemHtml;
             });
         }
@@ -114,7 +134,6 @@
                 .catch(error => console.error('Error fetching data:', error));
         });
 
-        // 최초 로드 시, 전체 마커를 그리고 지도 범위를 맞춤
         drawOverlays(initialBnbData, true);
     });
 </script>

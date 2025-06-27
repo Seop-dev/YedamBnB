@@ -38,5 +38,10 @@
     </set>
     WHERE   user_no = #{userNo}
   </update>
+  
+   <delete id="deleteUser" parameterType="int">
+    DELETE FROM TBL_USER
+    WHERE USER_NO = #{userNo}
+  </delete>
 
 </mapper>

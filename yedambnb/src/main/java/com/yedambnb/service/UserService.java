@@ -9,5 +9,6 @@ public interface UserService {
     
     // 사용자 정보 수정
     public boolean modifyUser(UserVO user);
+    public boolean removeUser(int userNo);
     
 }

@@ -50,9 +50,13 @@ body {
     background-color: #f1f3f5;
 }
 
+
+
+/* 수정 후 */
 .sidebar .menu a.active {
-    background-color: #e9ecef;
-    color: #000;
+    /* 활성화된 메뉴의 배경색을 포인트 컬러의 아주 연한 버전으로 변경 */
+    background-color: #f0f8f8; 
+    color: #005A5F; /* 글자색도 포인트 컬러로 */
     font-weight: 600;
 }
 
@@ -445,4 +449,16 @@ hr {
 .modal-content .form-group textarea {
     height: 120px;
     resize: vertical;
+}
+
+/* 수정 전 .sidebar h2 { color: #FF5A5F; } */
+
+/* 수정 후 */
+.sidebar h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 40px;
+    /* 메인 페이지의 헤더 색상과 유사한 짙은 청록색으로 변경 */
+    color: #005A5F; 
 }

@@ -25,5 +25,9 @@
     ORDER BY
         w.created_at DESC
   </select>
+   <delete id="deleteWishlist" parameterType="int">
+    DELETE FROM TBL_WISHLIST
+    WHERE WISHLIST_ID = #{wishlistId}
+  </delete>
 
 </mapper>

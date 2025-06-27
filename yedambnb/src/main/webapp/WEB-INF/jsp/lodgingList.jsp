@@ -1,11 +1,65 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<div class="section">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-lg-7">
+            <div class="img-property-slide-wrap">
+              <div class="img-property-slide">
+                <img src="../../image/seoul_img/seoul01_1.jpeg" alt="Image" class="img-fluid" />
+                <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
+                <img src="images/img_3.jpg" alt="Image" class="img-fluid" />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h2 class="heading text-primary">5232 California Ave. 21BC</h2>
+            <p class="meta">California, United States</p>
+            <p class="text-black-50">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
+              laborum quo quos omnis sed magnam id, ducimus saepe, debitis error
+              earum, iste dicta odio est sint dolorem magni animi tenetur.
+            </p>
+            <p class="text-black-50">
+              Perferendis eligendi reprehenderit, assumenda molestias nisi eius
+              iste reiciendis porro tenetur in, repudiandae amet libero.
+              Doloremque, reprehenderit cupiditate error laudantium qui, esse
+              quam debitis, eum cumque perferendis, illum harum expedita.
+            </p>
 
-<div class="section" style="margin-top: 120px;">
-    <div class="container">
-        <%-- 받는 파라미터 이름을 lodgingNo로 변경 --%>
-        <h1>${lodgingNo}번 숙소 상세 페이지</h1>
-        <hr>
-        <p>이 페이지는 상세 페이지 담당자가 이어서 작업할 공간입니다.</p>
-        <p>컨트롤러로부터 숙소 번호를 성공적으로 전달받았습니다.</p>
+            <div class="d-block agent-box p-5">
+              <div class="img mb-4">
+                <img
+                  src="images/person_2-min.jpg"
+                  alt="Image"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="text">
+                <h3 class="mb-0">Alicia Huston</h3>
+                <div class="meta mb-3">Real Estate</div>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Ratione laborum quo quos omnis sed magnam id ducimus saepe
+                </p>
+                <ul class="list-unstyled social dark-hover d-flex">
+                  <li class="me-1">
+                    <a href="#"><span class="icon-instagram"></span></a>
+                  </li>
+                  <li class="me-1">
+                    <a href="#"><span class="icon-twitter"></span></a>
+                  </li>
+                  <li class="me-1">
+                    <a href="#"><span class="icon-facebook"></span></a>
+                  </li>
+                  <li class="me-1">
+                    <a href="#"><span class="icon-linkedin"></span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>

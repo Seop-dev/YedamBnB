@@ -5,7 +5,7 @@
 <mapper namespace="com.yedambnb.mapper.BnbMapper">
 
     <resultMap id="bnbResult" type="com.yedambnb.vo.BnbVO">
-    <id property="lodgingId" column="LODGING_ID" />
+    <id property="lodgingNo" column="LODGING_NO" />
     <result property="lodgingName" column="LODGING_NAME" />
     <result property="lodgingAddress" column="LODGING_ADDRESS" />
     <result property="price" column="PRICE" />

@@ -15,6 +15,7 @@ import com.yedambnb.control.BnbListControl;
 import com.yedambnb.control.BookingListControl;
 import com.yedambnb.control.CancelBookingControl;
 import com.yedambnb.control.DeleteUserControl;
+import com.yedambnb.control.GetBnbControl;
 import com.yedambnb.control.GetListInBoundsControl;
 import com.yedambnb.control.GetLodgingListControl;
 import com.yedambnb.control.LoginForm;
@@ -57,10 +58,16 @@ public class FrontController extends HttpServlet {
 		map.put("/addReview.do", new AddReviewControl());
 		// ============ 숙소단건조회 ===================
 		map.put("/lodgingList.do", new lodgingListControl());
+
 		map.put("/wishlist.do", new WishlistControl());
 		map.put("/removeWishlist.do", new RemoveWishlistControl());
 		map.put("/cancelBooking.do",new CancelBookingControl() );
 		map.put("/deleteUser.do", new DeleteUserControl());
+
+		
+		// 상세보기
+		map.put("/getBnb.do", new GetBnbControl());
+
 	}
 
 	@Override

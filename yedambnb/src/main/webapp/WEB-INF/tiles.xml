@@ -3,65 +3,64 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="myapp.homepage"
-		template="/layouts/classic.jsp">
-		<put-attribute name="title"
-			value="Tiles tutorial homepage" />
+
+	<!-- 기본 홈페이지용 레이아웃 -->
+	<definition name="myapp.homepage" template="/layouts/classic.jsp">
+		<put-attribute name="title" value="Tiles tutorial homepage" />
 		<put-attribute name="header" value="/tiles/banner.jsp" />
-		<put-attribute name="menu"
-			value="/tiles/common_menu.jsp" />
+		<put-attribute name="menu" value="/tiles/common_menu.jsp" />
 		<put-attribute name="body" value="/tiles/home_body.jsp" />
 		<put-attribute name="footer" value="/tiles/credits.jsp" />
 	</definition>
 
-	<!-- 일반사용자. -->
-	<definition name="user"
-		template="/WEB-INF/layout/template.jsp">
-		<put-attribute name="title"
-			value="Tiles tutorial homepage" />
-		<put-attribute name="header"
-			value="/WEB-INF/layout/header.jsp" />
-		<put-attribute name="menu"
-			value="/WEB-INF/layout/menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/layout/body.jsp" />
-		<put-attribute name="footer"
-			value="/WEB-INF/layout/footer.jsp" />
+	<!-- 일반 사용자 레이아웃 -->
+	<definition name="user" template="/WEB-INF/layout/template.jsp">
+		<put-attribute name="title" value="Tiles tutorial homepage" />
+		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/layout/menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/layout/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
 	</definition>
 
-	<!-- 관리사용자. -->
-	<definition name="admin"
-		template="/WEB-INF/layout/template_a.jsp">
-		<put-attribute name="title"
-			value="Tiles tutorial homepage" />
-		<put-attribute name="header"
-			value="/WEB-INF/layout/header_a.jsp" />
-		<put-attribute name="menu"
-			value="/WEB-INF/layout/menu_a.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/layout/body_a.jsp" />
-		<put-attribute name="footer"
-			value="/WEB-INF/layout/footer_a.jsp" />
+	<!-- 관리자 사용자 레이아웃 -->
+	<definition name="admin" template="/WEB-INF/layout/template_a.jsp">
+		<put-attribute name="title" value="Tiles tutorial homepage" />
+		<put-attribute name="header" value="/WEB-INF/layout/header_a.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/layout/menu_a.jsp" />
+		<put-attribute name="body" value="/WEB-INF/layout/body_a.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layout/footer_a.jsp" />
 	</definition>
 
-	<!-- 추가 definition. -->
-	<definition name="WILDCARD:user/*" extends="user">
-		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
-	</definition>
-
-
-	<definition name="WILDCARD:admin/*" extends="admin">
-		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
-	</definition>
-
-	<!-- 추가 더 한거 -->
-	<definition name="bnb" template="/WEB-INF/layout/bnbTemp.jsp">
+	<!-- 숙소 예약 사이트용 레이아웃 -->
+    <definition name="bnb" template="/WEB-INF/layout/bnbTemp.jsp">
 		<put-attribute name="title" value="숙소 예약 사이트" />
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/layout/bnb.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
 	</definition>
 
+	
+	<!-- [추가]  layout -->
+	
+	<definition name="mypageLayout" template="/WEB-INF/layout/mypage_layout.jsp">
+        <put-attribute name="title" value="My Page" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+	<definition name="WILDCARD:user/*" extends="mypageLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+        <put-attribute name="title" value="{1}" />
+	</definition>
+	<!-- ======================= -->
+	<!-- [추가 끝] -->
+	<!-- ======================= -->
+
+	<!-- 관리자 페이지용 와일드카드 -->
+	<definition name="WILDCARD:admin/*" extends="admin">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+	</definition>
+	
+    <!-- 숙소 예약 페이지용 와일드카드 -->
     <definition name="WILDCARD:bnb/*" extends="bnb">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
 	</definition>
@@ -71,11 +70,9 @@
 	</definition>
 	
 	<!-- 마지막 -->
+	<!-- 기타 모든 2단계 경로 페이지용 와일드카드 -->
 	<definition name="WILDCARD:*/*" extends="user">
-		<put-attribute name="body"
-			value="/WEB-INF/jsp/{1}/{2}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
 	</definition>
-
-
 
 </tiles-definitions>

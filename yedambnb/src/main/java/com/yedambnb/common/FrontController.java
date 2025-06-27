@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedambnb.control.AddReviewControl;
 import com.yedambnb.control.BnbListControl;
 import com.yedambnb.control.BoardListControl;
 import com.yedambnb.control.BookingListControl;
@@ -31,13 +32,7 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-	    // 기존 매핑
-	    map.put("/main.do", new MainControl());
-	    map.put("/bnbList.do", new BnbListControl());
-	    map.put("/getLodgingList.do", new GetLodgingListControl());
-	    map.put("/boardList.do", new BoardListControl());
-	    map.put("/userInfo.do", new UserInfoControl());
-	    map.put("/bookingList.do", new BookingListControl());
+	    
 
 	    // 로그인/로그아웃 관련 매핑
 	    map.put("/loginForm.do", new LoginForm());
@@ -47,6 +42,16 @@ public class FrontController extends HttpServlet {
 	    
 	    // 지도관련 매핑
 	    map.put("/getListInBounds.do", new GetListInBoundsControl());
+
+		// ================== 숙소 관련 (신규 추가) ==================
+		map.put("/main.do", new MainControl()); // 메인 페이지
+		map.put("/bnbList.do", new BnbListControl()); // 메인 페이지
+		map.put("/getLodgingList.do", new GetLodgingListControl()); // 숙소 검색 목록
+		// ========================================================
+		map.put("/boardList.do", new BoardListControl());
+		map.put("/userInfo.do", new UserInfoControl());
+		map.put("/bookingList.do", new BookingListControl());
+		map.put("/addReview.do", new AddReviewControl());
 	}
 
 	@Override

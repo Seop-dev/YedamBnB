@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedambnb.mapper.MPReviewMapper">
+
+  <insert id="insertReview" parameterType="com.yedambnb.vo.MPReviewVO">
+    INSERT INTO TBL_REVIEW (
+        REVIEW_ID,
+        USER_NO,
+        USER_NAME,
+        ACCOMMODATION_ID,
+        SCORE,
+        COMMENT_TEXT
+    ) VALUES (
+        review_seq.nextval,
+        #{userNo},
+        #{userName},
+        #{accommodationId},
+        #{score},
+        #{commentText}
+    )
+  </insert>
+
+</mapper>

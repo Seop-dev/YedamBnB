@@ -14,6 +14,10 @@
 	<typeAliases>
 		<typeAlias alias="User" type="com.yedambnb.vo.UserVO" />
 		<typeAlias alias="Booking" type="com.yedambnb.vo.BookingVO" />
+		<typeAlias alias="MPReview" type="com.yedambnb.vo.MPReviewVO" />
+		<typeAlias alias="Wishlist" type="com.yedambnb.vo.WishlistVO" />
+		
+
 	</typeAliases>
 
 	<environments default="development">
@@ -36,6 +40,8 @@
 		<mapper resource="com/yedambnb/mapper/UserMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/BnbMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/BookingMapper.xml" />
+		<mapper resource="com/yedambnb/mapper/MPReviewMapper.xml" />
+		<mapper resource="com/yedambnb/mapper/wishlistMapper.xml" />
 	</mappers>
 
 </configuration>

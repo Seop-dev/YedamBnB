@@ -3,10 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper>
+<mapper namespace="com.yedambnb.mapper.LodgingDetailMapper">
    <select id="selectLodging" parameterType="int" resultType="Lodging">
-     SELECT lodging_no = #{lodgingNo}
+     SELECT lodging_no = #{lodgingNo }
      FROM tbl_lodging
    </select>
-
 </mapper>

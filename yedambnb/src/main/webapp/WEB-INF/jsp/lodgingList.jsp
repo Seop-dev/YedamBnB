@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <form action="lodgingList.do" method="post">
+<input type="hidden" name="lodging_no" value="${lodging.lodgingNo}">
 <!-- 사진영역 -->
 <div class="section">
       <div class="container">
@@ -22,7 +23,6 @@
             <h2 class="heading text-primary">5232 California Ave. 21BC</h2>
             <p class="meta">California, United States</p>
             <p class="text-black-50">
-              ${lodging.lodgingNo}
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
               laborum quo quos omnis sed magnam id, ducimus saepe, debitis error
               earum, iste dicta odio est sint dolorem magni animi tenetur.

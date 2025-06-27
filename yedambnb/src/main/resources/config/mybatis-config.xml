@@ -34,8 +34,7 @@
 	</environments>
 
 	<mappers>
-	<mapper resource="com/yedambnb/mapper/BnbMapper.xml"/>
-  <mapper resource="com/yedambnb/mapper/MemberMapper.xml"/>
+        <mapper resource="com/yedambnb/mapper/MemberMapper.xml"/>
 		<mapper resource="com/yedambnb/mapper/UserMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/BnbMapper.xml" />
 		<mapper resource="com/yedambnb/mapper/BookingMapper.xml" />

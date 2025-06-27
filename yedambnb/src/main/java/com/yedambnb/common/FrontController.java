@@ -26,7 +26,7 @@ import com.yedambnb.control.TempLoginAdmin;
 import com.yedambnb.control.TempLoginUser;
 import com.yedambnb.control.UserInfoControl;
 import com.yedambnb.control.WishlistControl;
-import com.yedambnb.control.lodgingListControl;
+import com.yedambnb.control.lodgingDetailControl;
 
 public class FrontController extends HttpServlet {
 	Map<String, Control> map;
@@ -58,7 +58,7 @@ public class FrontController extends HttpServlet {
 		map.put("/addReview.do", new AddReviewControl());
 		// ============ 숙소단건조회 ===================
 
-		map.put("/lodgingDetail.do", new lodgingListControl());
+		map.put("/lodgingDetail.do", new lodgingDetailControl());
 
 		map.put("/wishlist.do", new WishlistControl());
 		map.put("/removeWishlist.do", new RemoveWishlistControl());

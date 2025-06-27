@@ -7,27 +7,20 @@
 
   <select id="getBookingsByUserId" resultType="com.yedambnb.vo.BookingVO">
     SELECT
-        b.booking_id,
-        b.user_id,
-        b.lodging_id,
-        b.user_name,
-        b.price_per_night,
-        b.check_in_date,
-        b.check_out_date,
-        b.total_price,
-        b.booking_status,
-        l.name AS lodging_name, -- tbl_lodging의 name을 lodgingName으로 별칭
-        r.score,
-        r.comment_text
+        b.booking_id, b.user_id, b.lodging_id,
+        b.user_name, b.price_per_night, b.check_in_date,
+        b.check_out_date, b.total_price, b.booking_status,
+        l.name AS lodging_name,
+        r.score, r.comment_text
     FROM
         tbl_booking b
     JOIN
         tbl_lodging l ON b.lodging_id = l.lodging_id
     LEFT JOIN
-        tbl_review r ON (b.user_id = r.user_id AND b.lodging_id = r.lodging_no) -- 리뷰 테이블과의 JOIN 조건
+        tbl_review r ON (b.user_id = r.user_id AND b.lodging_id = r.lodging_no)
     WHERE
         b.user_id = #{userId}
     ORDER BY
         b.check_in_date DESC
-  </select>
+</select>
 </mapper>

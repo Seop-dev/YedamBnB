@@ -7,11 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedambnb.common.Control;
-import com.yedambnb.service.LodgingListService;
-import com.yedambnb.service.LodgingListServiceImpl;
-import com.yedambnb.vo.LodgingVO;
 
-public class lodgingListControl implements Control {
+
+public class lodgingDetailControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

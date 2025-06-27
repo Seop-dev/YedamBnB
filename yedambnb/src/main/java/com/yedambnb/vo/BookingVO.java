@@ -18,8 +18,8 @@ public class BookingVO {
     private int totalPrice;
     private String bookingStatus;
 
-    // JOIN을 통해 가져올 정보
+    // JOIN을 통해 가져올 정보들
     private String lodgingName;   // tbl_lodging의 name
-    private String commentText;     // tbl_review의 comment_text
-    private Integer score;          // tbl_review의 score
+    private String commentText;   // tbl_review의 comment_text
+    private Integer score;        // 리뷰가 없을 수도 있으므로 Integer
 }

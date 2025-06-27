@@ -12,5 +12,5 @@ public class MPReviewVO {
     private int lodgingNo; // accommodation_id -> lodging_no 로 변경
     private int score;
     private String commentText;
-    private Date reviewDate;
+    // review_date는 테이블에 없으므로 삭제합니다.
 }

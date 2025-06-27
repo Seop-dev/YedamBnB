@@ -9,23 +9,21 @@
     SELECT
         w.wishlist_id,
         w.user_no,
-        w.accommodation_id,
+        w.lodging_id,
         w.created_at,
-        a.name,
-        a.price_per_night,
-        (SELECT p.photo_path
-         FROM   tbl_accommodation_photos p
-         WHERE  p.accommodation_id = w.accommodation_id AND ROWNUM = 1) AS photo_path
+        l.name,
+        l.price_per_night
     FROM
         tbl_wishlist w
     JOIN
-        tbl_accommodations a ON w.accommodation_id = a.accommodation_id
+        tbl_lodging l ON w.lodging_id = l.lodging_id
     WHERE
         w.user_no = #{userNo}
     ORDER BY
         w.created_at DESC
   </select>
-   <delete id="deleteWishlist" parameterType="int">
+
+  <delete id="deleteWishlist" parameterType="int">
     DELETE FROM TBL_WISHLIST
     WHERE WISHLIST_ID = #{wishlistId}
   </delete>

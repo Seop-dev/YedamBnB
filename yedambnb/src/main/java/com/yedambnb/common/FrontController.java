@@ -58,13 +58,11 @@ public class FrontController extends HttpServlet {
 		map.put("/addReview.do", new AddReviewControl());
 		// ============ 숙소단건조회 ===================
 		map.put("/lodgingList.do", new lodgingListControl());
-
 		map.put("/wishlist.do", new WishlistControl());
 		map.put("/removeWishlist.do", new RemoveWishlistControl());
 		map.put("/cancelBooking.do",new CancelBookingControl() );
 		map.put("/deleteUser.do", new DeleteUserControl());
-
-		
+	
 		// 상세보기
 		map.put("/getBnb.do", new GetBnbControl());
 

@@ -20,4 +20,7 @@ public class BookingVO {
     private String name;           // [수정] accommodationName -> name
     private int pricePerNight;     // [추가] 1박당 가격 필드
     private String photoPath;      // 이미지 경로 필드
+    
+    private Integer score;       // 리뷰가 없을 수도 있으므로, null을 허용하는 Integer 타입 사용
+    private String commentText;
 }

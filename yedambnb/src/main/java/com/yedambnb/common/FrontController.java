@@ -13,14 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedambnb.control.AddReviewControl;
 import com.yedambnb.control.BnbListControl;
 import com.yedambnb.control.BookingListControl;
+import com.yedambnb.control.CancelBookingControl;
+import com.yedambnb.control.DeleteUserControl;
 import com.yedambnb.control.GetListInBoundsControl;
 import com.yedambnb.control.GetLodgingListControl;
 import com.yedambnb.control.LoginForm;
 import com.yedambnb.control.Logout;
 import com.yedambnb.control.MainControl;
+import com.yedambnb.control.RemoveWishlistControl;
 import com.yedambnb.control.TempLoginAdmin;
 import com.yedambnb.control.TempLoginUser;
 import com.yedambnb.control.UserInfoControl;
+import com.yedambnb.control.WishlistControl;
 import com.yedambnb.control.lodgingListControl;
 
 public class FrontController extends HttpServlet {
@@ -53,6 +57,10 @@ public class FrontController extends HttpServlet {
 		map.put("/addReview.do", new AddReviewControl());
 		// ============ 숙소단건조회 ===================
 		map.put("/lodgingList.do", new lodgingListControl());
+		map.put("/wishlist.do", new WishlistControl());
+		map.put("/removeWishlist.do", new RemoveWishlistControl());
+		map.put("/cancelBooking.do",new CancelBookingControl() );
+		map.put("/deleteUser.do", new DeleteUserControl());
 	}
 
 	@Override

@@ -8,5 +8,6 @@ public interface BookingService {
 
    
     public List<BookingVO> getBookingsByUserId(String userId);
+    public boolean cancelBooking(int bookingId);
 
 }

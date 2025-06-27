@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedambnb.control.AddReviewControl;
 import com.yedambnb.control.BnbListControl;
-import com.yedambnb.control.BoardListControl;
 import com.yedambnb.control.BookingListControl;
 import com.yedambnb.control.GetListInBoundsControl;
 import com.yedambnb.control.GetLodgingListControl;
@@ -49,7 +48,6 @@ public class FrontController extends HttpServlet {
 		map.put("/bnbList.do", new BnbListControl()); // 메인 페이지
 		map.put("/getLodgingList.do", new GetLodgingListControl()); // 숙소 검색 목록
 		// ========================================================
-		map.put("/boardList.do", new BoardListControl());		
 		map.put("/userInfo.do", new UserInfoControl());
 		map.put("/bookingList.do", new BookingListControl());
 		map.put("/addReview.do", new AddReviewControl());

@@ -35,7 +35,7 @@ public class AddReviewControl implements Control {
 
         // [수정] 새로운 MPReviewVO의 필드에 맞춰 값을 설정합니다.
         MPReviewVO reviewVO = new MPReviewVO();
-        reviewVO.setLodgingNo(Integer.parseInt(lodgingId));
+        reviewVO.setLodgingNo(Integer.parseInt(lodgingId)); // tbl_review는 lodging_no를 사용
         reviewVO.setUserId(userId);
 
         if (user != null) {

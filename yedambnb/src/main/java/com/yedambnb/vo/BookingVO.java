@@ -23,4 +23,8 @@ public class BookingVO {
     
     private Integer score;       // 리뷰가 없을 수도 있으므로, null을 허용하는 Integer 타입 사용
     private String commentText;
+    
+    // userNo 제거 필요
+    // 인원(person) 컬럼 추가 필요
+    private int userId;
 }

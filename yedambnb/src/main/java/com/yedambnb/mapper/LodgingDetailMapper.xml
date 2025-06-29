@@ -5,7 +5,8 @@
 
 <mapper namespace="com.yedambnb.mapper.LodgingDetailMapper">
    <select id="selectLodging" parameterType="int" resultType="Lodging">
-     SELECT lodging_no = #{lodgingNo }
+     SELECT *
      FROM tbl_lodging
+     WHERE lodging_no = #{lodgingNo }
    </select>
 </mapper>

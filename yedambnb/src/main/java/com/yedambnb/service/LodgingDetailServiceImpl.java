@@ -1,6 +1,5 @@
 package com.yedambnb.service;
 
-import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -14,7 +13,7 @@ public class LodgingDetailServiceImpl implements LodgingDetailService{
 	LodgingDetailMapper mapper = sqlSession.getMapper(LodgingDetailMapper.class);
 	
 	@Override
-	public List<LodgingVO> lodgingDetail(int lodgingNo) {
+	public LodgingVO lodgingDetail(int lodgingNo) {
 		return mapper.selectLodging(lodgingNo);
 	}
 

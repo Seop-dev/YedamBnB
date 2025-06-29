@@ -23,4 +23,11 @@
     )
   </insert>
 
+
+  <!-- 리뷰조회 -->
+  <select id="selectReview" parameterType="int" resultType="MPReview">
+  SELECT user_name, accommodation_id, score, comment_text
+  FROM tbl_review
+  WHERE accommodation_id = #{accommodationId }
+  </select>
 </mapper>

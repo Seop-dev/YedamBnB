@@ -1,5 +1,7 @@
 package com.yedambnb.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.yedambnb.common.DataSource;
@@ -18,4 +20,12 @@ public class MPReviewServiceImpl implements MPReviewService {
       
         return mapper.insertReview(review) == 1;
     }
+
+    // 리뷰조회
+	@Override
+	public List<MPReviewVO> selectReview(int accommodationId) {
+		return mapper.selectReview(accommodationId);
+	}
+    
+    
 }

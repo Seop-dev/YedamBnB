@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class BookingVO {
-    // tbl_booking 테이블의 컬럼들
+    // tbl_booking 테이블의 컬럼들 (현재 DB 구조와 일치함)
     private int bookingId;
     private String userId;
-    private int lodgingId;
+    private int lodgingNo;
     private String userName;
     private int pricePerNight;
     private Date checkInDate;
@@ -19,7 +19,7 @@ public class BookingVO {
     private String bookingStatus;
 
     // JOIN을 통해 가져올 정보들
-    private String lodgingName;   // tbl_lodging의 name
-    private String commentText;   // tbl_review의 comment_text
-    private Integer score;        // 리뷰가 없을 수도 있으므로 Integer
+    private String lodgingName;
+    private String commentText;
+    private Integer score;
 }

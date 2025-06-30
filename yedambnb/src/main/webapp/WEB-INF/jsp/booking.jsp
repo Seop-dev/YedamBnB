@@ -55,7 +55,8 @@
 								<c:otherwise>
 									<button type="button" class="btn-primary btn-card btn-review"
 										data-booking-id="${b.bookingId}"
-										data-lodging-id="${b.lodgingId}" data-user-id="user1">리뷰쓰기</button>
+										data-lodging-id="${b.lodgingNo}" data-user-id="user1">리뷰쓰기</button>
+										
 								</c:otherwise>
 							</c:choose>
 						</c:when>
@@ -64,8 +65,8 @@
 						</c:when>
 					</c:choose>
 				</div>
-			</div> 
-			
+			</div>
+
 		</c:forEach>
 	</div>
 </main>

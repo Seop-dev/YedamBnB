@@ -47,6 +47,11 @@
             <a href="main.do" class="logo m-0 float-start">YedamBNB</a>
             
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+
+              <%-- 기존 메뉴 삭제 --%>
+              <li><a href="loginForm.do">로그인</a></li>
+              <li><a href="registerForm.do">회원가입</a></li>
+
                 
                 <%-- 비로그인 상태 --%>
                 <c:if test="${empty logid}">
@@ -65,6 +70,7 @@
             
                     <li><a href="logout.do">로그아웃</a></li>
                 </c:if>
+
             </ul>
             <a
               href="#"

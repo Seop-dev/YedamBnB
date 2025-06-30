@@ -11,4 +11,11 @@ public interface UserService {
     public boolean modifyUser(UserVO user);
     public boolean removeUser(int userNo);
     
+    //=========== 회원등록 및 로그인(동원) ===============
+    // 회원등록
+    boolean registerUser(UserVO user); 
+    //아이디 중복검사
+    public UserVO isUserIdAvailable(String userId); 
+    //아이디 비밀번호 검사
+    public UserVO login(String id, String pw);
 }

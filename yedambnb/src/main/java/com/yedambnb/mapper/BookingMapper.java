@@ -1,6 +1,7 @@
 package com.yedambnb.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yedambnb.vo.BookingVO;
 /**
@@ -9,5 +10,6 @@ import com.yedambnb.vo.BookingVO;
 public interface BookingMapper {
  
     public List<BookingVO> getBookingsByUserId(String userId);
+    public int updateBookingStatus(Map<String, Object> params);
 
 }

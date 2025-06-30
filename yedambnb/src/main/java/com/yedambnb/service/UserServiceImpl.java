@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
       
         return mapper.updateUser(user) == 1;
     }
+
     
     // ============ 회원가입 및 로그인(동원) =============
     // 회원등록
@@ -44,5 +45,13 @@ public class UserServiceImpl implements UserService {
 	public UserVO login(String id, String pw) {
 	    return mapper.logincheck(id, pw); // 로그인 처리 (ID, PW 일치 확인)
 	}
+
+
+    @Override
+    public boolean removeUser(int userNo) {
+        // Mapper의 deleteUser를 호출하고,
+        // 성공적으로 1개의 행이 삭제되었으면 true를, 아니면 false를 반환합니다.
+        return mapper.deleteUser(userNo) == 1;
+    }
 
 }

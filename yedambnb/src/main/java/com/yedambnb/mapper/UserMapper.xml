@@ -38,6 +38,11 @@
     </set>
     WHERE   user_no = #{userNo}
   </update>
+  
+   <delete id="deleteUser" parameterType="int">
+    DELETE FROM TBL_USER
+    WHERE USER_NO = #{userNo}
+  </delete>
 
   <!-- 회원가입 및 로그인(동원) -->
   <!-- 회원가입 -->

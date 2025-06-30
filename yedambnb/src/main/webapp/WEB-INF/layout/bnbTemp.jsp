@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -44,10 +45,32 @@
           <div class="site-navigation">
 
             <a href="main.do" class="logo m-0 float-start">YedamBNB</a>
+            
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+
               <%-- 기존 메뉴 삭제 --%>
               <li><a href="loginForm.do">로그인</a></li>
               <li><a href="registerForm.do">회원가입</a></li>
+
+                
+                <%-- 비로그인 상태 --%>
+                <c:if test="${empty logid}">
+                    <li><a href="loginForm.do">로그인</a></li>
+                    <li><a href="signupForm.do">회원가입</a></li>
+                </c:if>
+                
+                <%-- 로그인 상태 --%>
+                <c:if test="${not empty logid}">
+                    <%-- ★★★ 이 부분의 href를 "userInfo.do"로 수정합니다 ★★★ --%>
+                    <li><a href="userInfo.do">${logName}님 환영합니다</a></li>
+                    
+                    <c:if test="${logRole == 'admin'}">
+                        <li><a href="adminPage.do">관리자 페이지</a></li>
+                    </c:if>
+            
+                    <li><a href="logout.do">로그아웃</a></li>
+                </c:if>
+
             </ul>
             <a
               href="#"
@@ -79,7 +102,7 @@
                 </li>
               </ul>
             </div>
-            </div>
+          </div>
           <div class="col-lg-4">
             <div class="widget">
               <h3>Sources</h3>
@@ -100,7 +123,7 @@
                 <li><a href="#">Creative</a></li>
               </ul>
             </div>
-            </div>
+          </div>
           <div class="col-lg-4">
             <div class="widget">
               <h3>Links</h3>
@@ -109,30 +132,17 @@
                 <li><a href="#">About us</a></li>
                 <li><a href="#">Contact us</a></li>
               </ul>
-
               <ul class="list-unstyled social">
-                <li>
-                  <a href="#"><span class="icon-instagram"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-twitter"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-facebook"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-linkedin"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-pinterest"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-dribbble"></span></a>
-                </li>
+                <li><a href="#"><span class="icon-instagram"></span></a></li>
+                <li><a href="#"><span class="icon-twitter"></span></a></li>
+                <li><a href="#"><span class="icon-facebook"></span></a></li>
+                <li><a href="#"><span class="icon-linkedin"></span></a></li>
+                <li><a href="#"><span class="icon-pinterest"></span></a></li>
+                <li><a href="#"><span class="icon-dribbble"></span></a></li>
               </ul>
             </div>
-            </div>
           </div>
+        </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
             <p>
@@ -150,7 +160,7 @@
           </div>
         </div>
       </div>
-      </div>
+    </div>
     <div id="overlayer"></div>
     <div class="loader">
       <div class="spinner-border" role="status">

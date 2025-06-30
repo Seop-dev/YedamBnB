@@ -6,7 +6,6 @@ import com.yedambnb.common.DataSource;
 import com.yedambnb.mapper.MPReviewMapper;
 import com.yedambnb.vo.MPReviewVO;
 
-// MPReviewService 인터페이스를 '구현'하는 클래스.
 public class MPReviewServiceImpl implements MPReviewService {
 
     private SqlSession sqlSession = DataSource.getInstance().openSession(true);
@@ -14,8 +13,7 @@ public class MPReviewServiceImpl implements MPReviewService {
 
     @Override
     public boolean addReview(MPReviewVO review) {
-        // MPReviewMapper의 insertReview를 호출하고,
-      
+        // 수정된 Mapper의 insertReview를 호출합니다.
         return mapper.insertReview(review) == 1;
     }
 }

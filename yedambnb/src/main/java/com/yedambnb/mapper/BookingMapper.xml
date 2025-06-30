@@ -23,4 +23,9 @@
     ORDER BY
         b.check_in_date DESC
 </select>
+<update id="updateBookingStatus" parameterType="int">
+    UPDATE tbl_booking
+    SET    booking_status = 'CANCELED'
+    WHERE  booking_id = #{bookingId}
+</update>
 </mapper>

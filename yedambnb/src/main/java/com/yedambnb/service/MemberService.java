@@ -1,6 +1,6 @@
 package com.yedambnb.service;
-import com.yedambnb.vo.MemberVO;
+import com.yedambnb.vo.UserVO;
 
 public interface MemberService {
-    MemberVO login(MemberVO vo);
+    UserVO login(UserVO vo);
 }

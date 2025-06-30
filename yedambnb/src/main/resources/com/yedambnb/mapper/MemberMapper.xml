@@ -4,10 +4,18 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedambnb.mapper.MemberMapper">
 
-  <select id="loginCheck" resultType="com.yedambnb.vo.MemberVO">
-    SELECT user_name, user_role
-    FROM users
-    WHERE user_id = #{userId} AND user_pw = #{userPw}
-  </select>
-  
+  <select id="loginCheck" resultType="com.yedambnb.vo.UserVO">
+  SELECT
+    user_no AS userNo,
+    user_id AS userId,
+    user_pw AS userPw,
+    user_name AS userName,
+    birth_date AS birthDate,
+    telephone,
+    user_authority AS userAuthority
+  FROM tbl_user
+  WHERE user_id = #{userId} AND user_pw = #{userPw}
+</select>
+
+
 </mapper>

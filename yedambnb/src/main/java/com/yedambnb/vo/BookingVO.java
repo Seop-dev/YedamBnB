@@ -7,17 +7,19 @@ import lombok.Data;
 public class BookingVO {
     // tbl_booking 테이블의 컬럼들
     private int bookingId;
-    private int userNo;
-    private int accommodationId;
+    private String userId;
+    private int lodgingId;
+    private String userName;
+    private int pricePerNight;
     private Date checkInDate;
     private Date checkOutDate;
-    private int adults;
-    private int children;
+    private int memberCount;
+    private int fee;
     private int totalPrice;
     private String bookingStatus;
 
-    // JOIN을 통해 다른 테이블에서 가져온 정보
-    private String name;           // [수정] accommodationName -> name
-    private int pricePerNight;     // [추가] 1박당 가격 필드
-    private String photoPath;      // 이미지 경로 필드
+    // JOIN을 통해 가져올 정보들
+    private String lodgingName;   // tbl_lodging의 name
+    private String commentText;   // tbl_review의 comment_text
+    private Integer score;        // 리뷰가 없을 수도 있으므로 Integer
 }

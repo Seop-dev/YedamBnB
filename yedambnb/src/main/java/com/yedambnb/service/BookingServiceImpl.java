@@ -1,6 +1,8 @@
 package com.yedambnb.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -23,6 +25,18 @@ public class BookingServiceImpl implements BookingService {
         // Controller로부터 받은 userId를 Mapper에게 그대로 전달하고
         // Mapper가 DB에서 조회한 결과를 Controller에게 그대로 반환합니다.
         return mapper.getBookingsByUserId(userId);
+    }
+    
+    @Override
+    public boolean cancelBooking(int bookingId) {
+        // Mapper에 bookingId와 새로운 상태('CANCELED')를 함께 넘겨주기 위해 Map을 사용합니다.
+        Map<String, Object> params = new HashMap<>();
+        params.put("bookingId", bookingId);
+        params.put("status", "CANCELED");
+        
+        // Mapper의 updateBookingStatus를 호출하고,
+        // 성공적으로 1개의 행이 수정되었으면 true를, 아니면 false를 반환합니다.
+        return mapper.updateBookingStatus(params) == 1;
     }
 
 }

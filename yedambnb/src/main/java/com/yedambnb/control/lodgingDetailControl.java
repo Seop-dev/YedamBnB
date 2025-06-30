@@ -8,14 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedambnb.common.Control;
 
-public class lodgingListControl implements Control {
+
+public class lodgingDetailControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String keyword = req.getParameter("keyword");
+		String lodgingNo = req.getParameter("lodging_no");
 		
-		
-		req.getRequestDispatcher("/WEB-INF/jsp/lodgingList.jsp").forward(req, resp);
+		req.setAttribute("lodging_no", lodgingNo);
+				
+		req.getRequestDispatcher("bnb/lodgingList.tiles").forward(req, resp);
 
 	}
 

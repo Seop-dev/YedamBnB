@@ -3,7 +3,6 @@ package com.yedambnb.service;
 import com.yedambnb.vo.MPReviewVO;
 
 public interface MPReviewService {
-    // 리뷰 등록 기능
-   
+    // 최종 확정된 테이블 구조에 맞게 리뷰를 등록하는 기능
     public boolean addReview(MPReviewVO review);
 }

@@ -54,6 +54,7 @@
 							<span class="status-badge upcoming">UPCOMING</span>
 							<button type="button" class="btn-secondary btn-card cancel-btn"
 								data-booking-id="${b.bookingId}">취소하기</button>
+								
 						</c:when>
 						<c:when test="${b.bookingStatus == 'PAST'}">
 							<span class="status-badge past">PAST</span>

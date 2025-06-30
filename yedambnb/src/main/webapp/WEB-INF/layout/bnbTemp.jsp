@@ -30,6 +30,7 @@
     <title>YedamBNB</title>
     </head>
   <body>
+  
     <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close">
@@ -48,18 +49,20 @@
             
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
 
-              <%-- 기존 메뉴 삭제 --%>
-              <li><a href="loginForm.do">로그인</a></li>
-              <li><a href="registerForm.do">회원가입</a></li>
+
 
                 
-             
+                <%-- 비로그인 상태 --%>
+                <c:if test="${empty loginUser}">
+                    <li><a href="loginForm.do">로그인</a></li>
+                    <li><a href="registerForm.do">회원가입</a></li>
+                </c:if>
                 
                 <%-- 로그인 상태 --%>
-                <c:if test="${not empty logid}">
+                <c:if test="${not empty loginUser}">
                     <%-- ★★★ 이 부분의 href를 "userInfo.do"로 수정합니다 ★★★ --%>
-                    <li><a href="userInfo.do">${logName}님 환영합니다</a></li>
-                    
+                    <li><a href="userInfo.do">${loginUser.userName}님 환영합니다</a></li>
+
                     <c:if test="${logRole == 'admin'}">
                         <li><a href="adminPage.do">관리자 페이지</a></li>
                     </c:if>
@@ -171,4 +174,6 @@
     <script src="js/counter.js"></script>
     <script src="js/custom.js"></script>
   </body>
+  
+
 </html>

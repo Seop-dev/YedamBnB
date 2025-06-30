@@ -8,7 +8,8 @@ public class WishlistVO {
     // TBL_WISHLIST 테이블의 컬럼들
     private int wishlistId;
     private int userNo;
-    private int lodgingId; // accommodationId -> lodgingId 로 변경
+    private int lodgingId; 
+    // accommodationId -> lodgingId 로 변경
     private Date createdAt;
 
     // JOIN을 통해 숙소 정보를 함께 보여주기 위한 추가 필드들

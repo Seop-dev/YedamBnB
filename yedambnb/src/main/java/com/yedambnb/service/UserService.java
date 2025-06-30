@@ -18,4 +18,6 @@ public interface UserService {
     public UserVO isUserIdAvailable(String userId); 
     //아이디 비밀번호 검사
     public UserVO login(String id, String pw);
+
+	public UserVO login(UserVO vo);
 }

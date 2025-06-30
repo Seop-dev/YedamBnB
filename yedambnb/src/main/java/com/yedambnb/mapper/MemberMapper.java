@@ -1,7 +1,6 @@
 package com.yedambnb.mapper;
-
-import com.yedambnb.vo.MemberVO;
+import com.yedambnb.vo.UserVO;
 
 public interface MemberMapper {
-    MemberVO loginCheck(MemberVO vo);
+    UserVO loginCheck(UserVO vo);
 }

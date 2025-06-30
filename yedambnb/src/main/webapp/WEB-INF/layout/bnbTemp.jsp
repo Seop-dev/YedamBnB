@@ -55,7 +55,7 @@
                 <%-- 비로그인 상태 --%>
                 <c:if test="${empty loginUser}">
                     <li><a href="loginForm.do">로그인</a></li>
-                    <li><a href="registerForm.do">회원가입</a></li>
+                    <li><a href="signupForm.do">회원가입</a></li>
                 </c:if>
                 
                 <%-- 로그인 상태 --%>

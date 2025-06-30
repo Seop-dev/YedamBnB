@@ -51,6 +51,8 @@ public class FrontController extends HttpServlet {
 		map.put("/checkId.do", new CheckIdControl()); // id중복체크
 		map.put("/login.do", new LoginControl()); // 로그인페이지
 		map.put("/addReview.do", new AddReviewControl());
+		
+		
 	}
 
 	@Override

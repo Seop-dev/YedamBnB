@@ -54,10 +54,8 @@
   </select>
 
   <!-- 로그인 검사 -->
-  <select id="logincheck" parameterType="map" resultType="User">
-    SELECT user_no, user_id, user_pw, user_name, 
-           TO_CHAR(birth_date, 'YYYY-MM-DD') AS birthDate,
-           telephone, user_authority
+  <select id="logincheck" resultType="User">
+    SELECT user_id, user_pw
     FROM tbl_user
     WHERE user_id = #{id}
       AND user_pw = #{pw}

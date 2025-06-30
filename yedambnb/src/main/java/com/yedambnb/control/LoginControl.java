@@ -17,20 +17,19 @@ public class LoginControl implements Control {
 
     @Override
     public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
         String id = req.getParameter("user_id");
         String pw = req.getParameter("user_pw");
-        String remember = req.getParameter("remember");
 
         UserService service = new UserServiceImpl();
         UserVO vo = service.login(id, pw);
 
-        if (vo != null) {
+        if (vo != null && id.equals(vo.getUserId()) && pw.equals(vo.getUserPw())) {
             // 로그인 성공
-            HttpSession session = req.getSession();
-            session.setAttribute("loginUser", vo);
-
-            // 로그인 상태 유지
-        
+        	req.setAttribute("user_id", id);
+        	req.setAttribute("user_pw", pw);
+        	HttpSession session = req.getSession();
+        	session.setAttribute("loginUser", vo);
             resp.sendRedirect("main.do"); // 로그인 성공 후 이동
         } else {
             // 로그인 실패

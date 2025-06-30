@@ -93,14 +93,14 @@
     <form action="register.do" method="post" onsubmit="return validateForm()">
       <div class="form-input">
         <label>아이디</label>
-        <input type="text" name="user_id" id="user_id" required minlength="5" maxlength="20">
+        <input type="text" name="user_id" id="user_id" required minlength="4" maxlength="15">
         <button type="button" onclick="checkId()">중복체크</button>
         <div id="idError" class="error-msg">* 아이디는 필수입니다.</div>
       </div>
 
       <div class="form-input">
         <label>비밀번호</label>
-        <input type="password" name="user_pw" id="user_pw" required minlength="5" maxlength="20">
+        <input type="password" name="user_pw" id="user_pw" required minlength="4" maxlength="15">
       </div>
 
       <div class="form-input">

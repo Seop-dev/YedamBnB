@@ -8,43 +8,59 @@ import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yedambnb.common.Control;
-import com.yedambnb.vo.BookingVO;
+import com.yedambnb.service.BookingService;
+import com.yedambnb.service.BookingServiceImpl;
+import com.yedambnb.vo.ReservationVO;
 
 public class AddBookingControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		  resp.setContentType("text/json;charset=utf-8");
+		
 	  String checkInDate = req.getParameter("check_in_date");
 	  String checkOutDate = req.getParameter("check_out_date");
-	  //String memberCount = req.getParameter("member_count");
-	  String accommodationId = req.getParameter("accommodation_id");  // accommodation_id -> lodging_id 변경 필요
-	  //String userId = req.getParameter("user_id");
+	  // String memberCount = req.getParameter("member_count");
+	  String lodgingNo = req.getParameter("lodging_no");  // accommodation_id -> lodging_id 변경 필요
+	  // String userId = req.getParameter("user_id");
+	  String memberCount =req.getParameter("memberCount");
+	  String totalPrice =req.getParameter("totalPrice");
+//	  HttpSession session = req.getSession();
+//  	  String userId = (String) session.getAttribute("userId");
 
-	  System.out.println("숙소id" + accommodationId);
-	  BookingVO bvo = new BookingVO();
+	  String userId = "user01";
+	  
+	  System.out.println("숙소id " + lodgingNo);
+	  System.out.println("체크인 :" + checkOutDate);
+	  System.out.println("체크인 :" + checkInDate);
+	  
+	  ReservationVO bvo = new ReservationVO();
 
-	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	  
-	  bvo.setAccommodationId(Integer.parseInt(accommodationId));
+	  PrintWriter out = resp.getWriter();
 	  
-	  try {
-		bvo.setCheckInDate(sdf.parse(checkInDate));
-		bvo.setCheckOutDate(sdf.parse(checkOutDate));
-	} catch (ParseException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	  
+
+		bvo.setLodgingNo(Integer.parseInt(lodgingNo));
+		bvo.setCheckInDate(checkInDate);
+		bvo.setCheckOutDate(checkOutDate);
+		bvo.setMemberCount(Integer.parseInt(memberCount));
+		bvo.setTotalPrice((Integer.parseInt(memberCount) * 20000) + Integer.parseInt(totalPrice));
+		bvo.setUserId(userId);
+		
+		System.out.println(bvo.getTotalPrice());
+		
+		BookingService svc = new BookingServiceImpl();
+		if(svc.addReservation(bvo)) {
+			out.print("{\"retCode\":\"Success\"}");  // 성공할 경우		  
+			
+		}
 	  // bvo.setMemberCount(memberCount);
-	  //bvo.setUserId(userId);
+	  // bvo.setUserId(userId);
+
 	  
-	  if(checkInDate == null || checkOutDate == null || accommodationId == null) {
-		  resp.setContentType("application/json;charset=utf-8");
-		  PrintWriter out = resp.getWriter();
-		  out.print("{\"retCode\":\"Success\"}");		  
-	  } 
 	}
 
 }

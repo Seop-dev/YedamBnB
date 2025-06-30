@@ -8,7 +8,7 @@ public class BookingVO {
     // tbl_booking 테이블의 컬럼들
     private int bookingId;
     private int userNo;
-    private int accommodationId;
+    private int lodgingNo;
     private Date checkInDate;
     private Date checkOutDate;
     private int adults;

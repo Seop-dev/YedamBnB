@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<input type="hidden" id="accommodationId" value="${lodging.lodgingNo}">
+<input type="hidden" id="lodgingNo" value="${lodging.lodgingNo}">
 
-<!-- 사진안에 숙소제목넣는곳 -->
+<!-- 헤더부분 사진 및 설명 -->
     <div
       class="hero page-inner overlay"
       style="background-image: url('images/hero_bg_3.jpg')"
@@ -40,37 +40,49 @@
       </div>
       </div>
 
-<!-- 사진영역 -->
-<!--  
-<div class="section" style="margin-top: 100px;">
-      <div class="container">
-        <div class="row justify-content-between">
-          <div class="col-lg-7">
-            <div class="img-property-slide-wrap">
-              <div class="img-property-slide">
-                <img src="../image/seoul_img/seoul01_1.jpeg" alt="Image" class="img-fluid" />
-                <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
-                <img src="images/img_3.jpg" alt="Image" class="img-fluid" />
-              </div>
-            </div>
-          </div> -->
-<!-- 사진영역 -->
-<section class="section bg-white py-5 mb-5">
-  <div class="container">
-<div class="row g-2">
-  <!-- 왼쪽 큰 이미지 -->
-  <div class="col-lg-8 col-md-8 col-12" >
-    <img src="/yedambnb/image/seoul_img/seoul01_1.jpeg" class="img-fluid rounded w-100" alt="대표사진">
-  </div>
-  <!-- 오른쪽 이미지들 -->
-  <div class="col-lg-4 col-md-4 col-12 d-flex flex-column justify-content-between">
-    <img src="images/img_2.jpg" class="img-fluid rounded mb-2" style="height:49%; object-fit:cover;" alt="서브1">
-    <img src="images/img_3.jpg" class="img-fluid rounded" style="height:49%; object-fit:cover;" alt="서브2">
-  </div>
-</div>
-</div>
-</section>
+<!-- 사진영역  0~3 서울,  4~6 부산, 7~9 대구, 10~12 광주, 나머지 제주-->
+<c:choose>
+  <c:when test="${lodging.lodgingNo <= 4}">
+    <c:set var="city" value="seoul"/>
+    <c:set var="num" value="${lodging.lodgingNo}"/>
+  </c:when>
+  <c:when test="${lodging.lodgingNo <= 8}">
+    <c:set var="city" value="busan"/>
+    <c:set var="num" value="${lodging.lodgingNo - 4}"/>
+  </c:when>
+  <c:when test="${lodging.lodgingNo <= 12}">
+    <c:set var="city" value="daegu"/>
+    <c:set var="num" value="${lodging.lodgingNo - 8}"/>
+  </c:when>
+  <c:when test="${lodging.lodgingNo <= 16}">
+    <c:set var="city" value="gwangju"/>
+    <c:set var="num" value="${lodging.lodgingNo - 12}"/>
+  </c:when>
+  <c:otherwise>
+    <c:set var="city" value="jeju"/>
+    <c:set var="num" value="${lodging.lodgingNo - 16}"/>
+  </c:otherwise>
+</c:choose>
+<c:set var="imgnum" value="${num lt 10 ? '0' : ''}${num}" />
 
+<!-- 숙소이미지 보여주는 공간 -->
+<section style="margin-top : 80px">
+  <div class="container">
+    <div class="row g-2">
+      <div class="col-lg-8 col-md-8 col-12">
+        <img src="/yedambnb/image/${city}_img/${city}${imgnum}_0.jpeg" class="img-fluid rounded w-100" alt="대표사진">
+      </div>
+      <div class="col-lg-4 col-md-4 col-12 d-flex flex-column justify-content-between">
+        <c:forEach var="i" begin="1" end="2">
+          <img src="/yedambnb/image/${city}_img/${city}${imgnum}_${i}.jpeg"
+               class="img-fluid rounded mb-2"
+               style="height:49%; object-fit:cover;"
+               alt="서브${i}">
+        </c:forEach>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
@@ -83,7 +95,7 @@
             <h2 class="heading text-primary">${lodging.name }</h2>
             <p class="meta">${lodging.address }</p>	
           <div class="mt-3">
-            <h5 class="text-primary">숙소 설명</h5>
+            <h5 class="text-primary" id="pricePerNight">${lodging.pricePerNight }</h5>1박
             <p class="text-black-50">${lodging.description}</p>
           </div>
           </div>
@@ -92,6 +104,44 @@
           </div>
           </div>
 <!--  숙소제목, 위치, 설명 -->
+
+<!-- 지도 -->
+<div id="map" style="width:100%;height:350px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8a31d0d96330d4676d7c932270aa001"></script>
+<script>
+
+let lat = ${lodging.lat}
+let lng = ${lodging.lng}
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+      
+// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
+  
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition, 
+    image: markerImage // 마커이미지 설정 
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);  
+</script>
+<!-- 지도 -->
+
           
 <!-- 예약/결제 폼 영역 -->
 <div class="section bg-light mt-5">
@@ -126,34 +176,6 @@
         </div>
         </div>
 
-
-<script>
-console.log("lodging.lodgingNo = [${lodging.lodgingNo}]");
-console.log("lodging = ", "${lodging}");
-
-
-      document.querySelector('.btn').addEventListener("click", function(e) {
-	  e.preventDefault();
-	  let checkInDate = document.getElementById("checkIn").value;
-	  let checkOutDate = document.getElementById("checkOut").value;
-	  let accommodationId = '${lodging.lodgingNo}';
-
-	  console.log("fetch url: " + url);
-	  console.log("accommodationId: " + accommodationId);
-	  console.log("checkInDate: ", checkInDate);
-	  console.log("checkOutDate: ", checkOutDate);
-	  
-	  fetch(/yedambnb/addBooking.do?accommodation_id=${accommodationId}&check_in_date=${checkInDate}&check_out_date=${checkOutDate}`, {method: 'GET'})
-	    .then(result => result.json())
-	    .then(data => {
-	      if(data.retCode == "Success") {
-	        alert("예약이 완료되었습니다.");
-	      } else {
-	        alert("예약을 취소했습니다");
-	      }
-	    });
-	});
-</script>
 <!-- 예약/결제 폼 영역 -->
 
 <!-- 리뷰조회 -->
@@ -205,4 +227,4 @@ console.log("lodging = ", "${lodging}");
     </div>
   </div>
 </div>
-
+<script src="js/reserve.js"></script>

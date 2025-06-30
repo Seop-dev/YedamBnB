@@ -44,5 +44,8 @@
   </update>
 
 
-
+<insert id="insertReservation">
+INSERT INTO tbl_booking (user_id, check_in_date, check_out_date, lodging_no, total_price, member_count)
+VALUES (#{userId}, #{checkInDate}, #{checkOutDate}, ${lodgingNo}, ${totalPrice}, ${memberCount})
+</insert>
 </mapper>

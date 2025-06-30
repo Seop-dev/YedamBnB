@@ -9,5 +9,5 @@ public interface MPReviewMapper {
     public int insertReview(MPReviewVO review);
     
     // 리뷰조회
-    public List<MPReviewVO> selectReview(int accommidationId);
+    public List<MPReviewVO> selectReview(int lodgingId);
 }

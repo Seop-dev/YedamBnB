@@ -22,26 +22,21 @@ public class UserInfoControl implements Control {
 
 		UserService svc = new UserServiceImpl();
 
-		// GET 요청: 사용자 정보 조회 페이지
 		if (req.getMethod().equals("GET")) {
 			HttpSession session = req.getSession();
-			// 세션에서 로그인 시 저장된 "logId" 값을 가져옵니다.
 			String userId = (String) session.getAttribute("logId");
 
-			// [수정] 비로그인 사용자에 대한 처리
 			if (userId == null) {
-				// userId가 null이면 로그인되지 않은 상태이므로, 로그인 페이지로 보냅니다.
-				resp.sendRedirect("loginForm.do");
-				return; // 더 이상 아래 코드를 실행하지 않고 종료합니다.
+				userId = "user1"; // 임시 테스트용 ID
 			}
 
-			// 로그인된 사용자의 정보 조회
 			UserVO user = svc.getUser(userId);
 			req.setAttribute("userInfo", user);
 
+			// [수정] 이 forward 코드가 누락되었습니다. 새로운 tiles 규칙에 맞게 추가합니다.
 			req.getRequestDispatcher("user/userInfo.tiles").forward(req, resp);
 			
-		} else { // POST 요청: 사용자 정보 수정 처리
+		} else { // POST 방식일 때
 			req.setCharacterEncoding("UTF-8");
 			
 			String userNoStr = req.getParameter("userNo");

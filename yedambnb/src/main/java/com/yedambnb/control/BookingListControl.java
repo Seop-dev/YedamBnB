@@ -15,26 +15,16 @@ public class BookingListControl implements Control {
     @Override
     public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        
-        // [수정] 세션에서 "logId" 값을 가져옵니다.
         String userId = (String) session.getAttribute("logId");
-        
-        // [수정] 비로그인 사용자에 대한 처리
         if (userId == null) {
-            // userId가 null이면 로그인되지 않은 상태이므로, 로그인 페이지로 보냅니다.
-            resp.sendRedirect("loginForm.do");
-            return; // 더 이상 아래 코드를 실행하지 않고 종료합니다.
+            userId = "user1"; // 임시 테스트용 ID
         }
         
-        // 로그인된 사용자의 ID로 예약 목록을 조회합니다.
         BookingService svc = new BookingServiceImpl();
         List<BookingVO> list = svc.getBookingsByUserId(userId);
         
         req.setAttribute("bookingList", list);
-        
-        // JSP에서 사용할 수 있도록 로그인 ID를 request에 담아줍니다.
-        req.setAttribute("logId", userId); 
-        
+        req.setAttribute("logId", userId);  // 추가: JSP에서 ${logId} 사용 가능하도록
         req.getRequestDispatcher("user/booking.tiles").forward(req, resp);
     }
 }

@@ -12,5 +12,7 @@ public class LodgingVO {
     private double lat;
     private double lng;
     private int pricePerNight;
+    
+    // 썸네일 이미지 파일명을 담을 필드 추가 
+    private String thumbnailImg;
 }
-

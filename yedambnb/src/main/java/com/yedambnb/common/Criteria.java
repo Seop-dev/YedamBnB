@@ -4,15 +4,17 @@ import lombok.Data;
 
 @Data
 public class Criteria {
-	private int pageNum; // 현재 페이지 번호
-	private int amount;  // 한 페이지에 보여줄 데이터 개수
+	private int pageNum;
+	private int amount;
+	private String sort; // ★★★ 누락된 정렬 필드 다시 추가 ★★★
 
 	public Criteria() {
-		this(1, 9); // 기본값: 1페이지, 9개씩
+		this(1, 9);
 	}
 
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
+		this.sort = "recent"; // ★ 정렬 기본값 설정 추가
 	}
 }

@@ -2,20 +2,15 @@ package com.yedambnb.mapper;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param; // ★★★ 1. import 해주세요 ★★★
-
+import org.apache.ibatis.annotations.Param;
 import com.yedambnb.common.Criteria;
-import com.yedambnb.vo.BnbVO;
+import com.yedambnb.vo.LodgingVO;
 
 public interface BnbMapper {
-	
-	// ★★★ 2. 파라미터 앞에 @Param("별명")을 꼭 붙여주세요 ★★★
-	List<BnbVO> searchBnbListPaging(@Param("cri") Criteria cri, @Param("keyword") String keyword);
-
-	// getTotalCount 에도 일관성을 위해 추가해주는 것이 좋습니다.
+	List<LodgingVO> searchBnbListPaging(@Param("cri") Criteria cri, @Param("keyword") String keyword);
 	int getTotalCount(@Param("keyword") String keyword);
-	
-	List<BnbVO> selectListInBounds(Map<String, Double> bounds);
-	
+	List<LodgingVO> searchBnbListAll(String keyword);
+	List<LodgingVO> getListInBounds(Map<String, Double> bounds);
+	List<LodgingVO> getListInBoundsPaging(@Param("cri") Criteria cri, @Param("bounds") Map<String, Double> bounds);
+	int getCountInBounds(@Param("bounds") Map<String, Double> bounds);
 }

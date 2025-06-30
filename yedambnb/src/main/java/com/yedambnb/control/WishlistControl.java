@@ -9,40 +9,49 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.yedambnb.common.Control;
-import com.yedambnb.service.UserService;        // [추가] UserService를 사용하기 위해 import
-import com.yedambnb.service.UserServiceImpl;    // [추가]
+import com.yedambnb.service.UserService;
+import com.yedambnb.service.UserServiceImpl;
 import com.yedambnb.service.WishlistService;
 import com.yedambnb.service.WishlistServiceImpl;
-import com.yedambnb.vo.UserVO;                    // [추가] UserVO를 사용하기 위해 import
+import com.yedambnb.vo.UserVO;
 import com.yedambnb.vo.WishlistVO;
 
 public class WishlistControl implements Control {
 
     @Override
     public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
         HttpSession session = req.getSession();
+        
         String userId = (String) session.getAttribute("logId");
+        
         if (userId == null) {
-            userId = "user1"; // 임시 테스트용 ID
+            resp.sendRedirect("loginForm.do");
+            return;
         }
         
-        // [수정] String userId를 int userNo로 변환하는 과정을 추가합니다.
+        // [수정] userId(String)를 userNo(int)로 변환하는 과정 추가
         // 1. UserService를 통해 사용자 정보를 가져옵니다.
         UserService userSvc = new UserServiceImpl();
-        UserVO user = userSvc.getUser(userId);
+        UserVO user = userSvc.getUser(userId); // 이 메소드는 userId(String)로 UserVO를 반환해야 함
+
+        if (user == null) {
+            // 혹시 모를 예외 처리: 세션은 있는데 DB에 사용자가 없는 경우
+            System.out.println(" ID에 해당하는 사용자가 없습니다 " + userId);
+            resp.sendRedirect("loginForm.do");
+            return;
+        }
         
-        // 2. 가져온 사용자 정보에서 userNo를 추출합니다.
+        // 2. 가져온 사용자 정보에서 userNo(int)를 얻습니다.
         int userNo = user.getUserNo();
-
-        // 3. WishlistService에는 이제 String이 아닌 int 타입의 userNo를 전달합니다.
-        WishlistService wishSvc = new WishlistServiceImpl();
-        List<WishlistVO> list = wishSvc.getWishlist(userNo);
-
-        // 조회된 결과를 JSP에서 사용할 수 있도록 request 객체에 저장합니다.
+        
+        // 3. 로그인된 사용자의 userNo로 위시리스트를 조회합니다.
+        WishlistService wishlistSvc = new WishlistServiceImpl();
+        List<WishlistVO> list = wishlistSvc.getWishlist(userNo);
+        
+        // 4. 조회된 데이터를 JSP로 전달하기 위해 request에 저장합니다.
         req.setAttribute("wishlist", list);
-
-        // 위시리스트를 보여줄 JSP 페이지로 이동하도록 Tiles에 요청합니다.
+        
+        // 5. 위시리스트 페이지로 포워딩합니다.
         req.getRequestDispatcher("user/wishlist.tiles").forward(req, resp);
     }
 }

@@ -6,22 +6,31 @@
 <mapper namespace="com.yedambnb.mapper.BookingMapper">
 
   <select id="getBookingsByUserId" resultType="com.yedambnb.vo.BookingVO">
-    SELECT
-        b.booking_id, b.user_id, b.lodging_no,
-        b.user_name, b.price_per_night, b.check_in_date,
-        b.check_out_date, b.total_price, b.booking_status,
-        l.name AS lodging_name,
-        r.score, r.comment_text
-   FROM
-    tbl_booking b
-JOIN
-    tbl_lodging l ON b.lodging_no = l.lodging_id  
-LEFT JOIN
-    tbl_review r ON (b.user_id = r.user_id AND b.lodging_no = r.lodging_no) 
-    WHERE
+    SELECT 
+        b.booking_id, 
+        b.user_id, 
+        b.lodging_no, 
+        b.user_name,
+        b.price_per_night,
+        b.check_in_date,
+        b.check_out_date,
+        b.member_count,
+        b.fee,
+        b.total_price,
+        b.booking_status,
+        l.name as lodging_name,
+        r.score,
+        r.comment_text,
+        l.thumbnail_img -- ★★★★★ 이 줄을 추가합니다 ★★★★★
+    FROM 
+        tbl_booking b
+    LEFT JOIN 
+        tbl_review r ON (b.user_id = r.user_id AND b.lodging_no = r.lodging_no)
+    LEFT JOIN
+        tbl_lodging l ON (b.lodging_no = l.lodging_no)
+    WHERE 
         b.user_id = #{userId}
-    ORDER BY
-        b.check_in_date DESC
+    ORDER BY b.check_in_date DESC
 </select>
 <update id="updateBookingStatus" parameterType="int">
     UPDATE tbl_booking

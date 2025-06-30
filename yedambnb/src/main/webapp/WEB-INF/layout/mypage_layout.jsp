@@ -15,14 +15,20 @@
     <div class="page-container">
     
         <aside class="sidebar">
-            <h2>My Page</h2>
+
+            <%-- ▼▼▼ 이 부분을 수정했습니다! ▼▼▼ --%>
+            <a href="${pageContext.request.contextPath}/main.do" style="text-decoration: none; color: inherit;">
+                <h2>My Page</h2>
+            </a>
+            <%-- ▲▲▲ 이 부분을 수정했습니다! ▲▲▲ --%>
+
             <nav class="menu">
                 <ul>
                     <li><a href="userInfo.do">정보 수정</a></li>
                     <li><a href="bookingList.do">예약 내역</a></li>
                     <li><a href="wishlist.do">위시리스트</a></li>
                 </ul>
-            </nav>
+            </nav>	
         </aside>
 
         <main class="main-content">

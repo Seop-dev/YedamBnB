@@ -22,4 +22,5 @@ public class BookingVO {
     private String lodgingName;
     private String commentText;
     private Integer score;
+    private String thumbnailImg;
 }

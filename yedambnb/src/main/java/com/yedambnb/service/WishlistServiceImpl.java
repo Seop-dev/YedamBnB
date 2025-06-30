@@ -13,10 +13,10 @@ public class WishlistServiceImpl implements WishlistService {
     private SqlSession sqlSession = DataSource.getInstance().openSession(true);
     private WishlistMapper mapper = sqlSession.getMapper(WishlistMapper.class);
 
-    // [수정] 인터페이스와 동일하게 파라미터 타입을 String userId로 변경합니다.
     @Override
     public List<WishlistVO> getWishlist(int userNo) {
-        return mapper.selectWishlist(userNo);
+        // ▼▼▼ 여기를 mapper.getWishlist(userNo)로 수정합니다 ▼▼▼
+        return mapper.getWishlist(userNo);
     }
 
     @Override

@@ -23,9 +23,20 @@
 		<c:forEach var="b" items="${bookingList}">
 			<div class="booking-card"
 				data-status="${b.bookingStatus.toLowerCase()}">
-				<img
-					src="${pageContext.request.contextPath}/image/listing-default.png"
-					alt="숙소 이미지">
+				<c:choose>
+					<%-- 썸네일 이미지가 있는 경우 --%>
+					<c:when test="${not empty b.thumbnailImg}">
+						<img
+							src="${pageContext.request.contextPath}/image/${b.thumbnailImg}"
+							alt="${b.lodgingName}">
+					</c:when>
+					<%-- 썸네일 이미지가 없는 경우 기본 이미지 표시 --%>
+					<c:otherwise>
+						<img
+							src="${pageContext.request.contextPath}/image/listing-default.png"
+							alt="숙소 이미지">
+					</c:otherwise>
+				</c:choose>
 				<div class="details">
 					<h3>${b.lodgingName}</h3>
 					<p class="dates">
@@ -55,8 +66,8 @@
 								<c:otherwise>
 									<button type="button" class="btn-primary btn-card btn-review"
 										data-booking-id="${b.bookingId}"
-										data-lodging-id="${b.lodgingNo}" data-user-id="user1">리뷰쓰기</button>
-										
+										data-lodging-id="${b.lodgingNo}" data-user-id="${logId}">리뷰쓰기</button>
+
 								</c:otherwise>
 							</c:choose>
 						</c:when>

@@ -36,7 +36,7 @@ public class WishlistControl implements Control {
 
         if (user == null) {
             // 혹시 모를 예외 처리: 세션은 있는데 DB에 사용자가 없는 경우
-            System.out.println(" ID에 해당하는 사용자가 없습니다 " + userId);
+            System.out.println("세션 ID에 해당하는 사용자가 없습니다. " + userId);
             resp.sendRedirect("loginForm.do");
             return;
         }

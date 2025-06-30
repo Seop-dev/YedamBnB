@@ -4,40 +4,61 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedambnb.mapper.BnbMapper">
 
-    <resultMap id="bnbResult" type="com.yedambnb.vo.BnbVO">
-    <id property="lodgingNo" column="LODGING_NO" />
-    <result property="lodgingName" column="LODGING_NAME" />
-    <result property="lodgingAddress" column="LODGING_ADDRESS" />
-    <result property="price" column="PRICE" />
-    <result property="maxPpl" column="MAX_PPL" />
-    <result property="lodgingDesc" column="LODGING_DESC" />
-    <result property="lodgingType" column="LODGING_TYPE" />
-    <result property="latitude" column="LATITUDE" />
-    <result property="longitude" column="LONGITUDE" />
-</resultMap>
+    <resultMap id="bnbResult" type="com.yedambnb.vo.LodgingVO">
+        <id property="lodgingId" column="lodging_id" />
+        <result property="lodgingNo" column="lodging_no" />
+        <result property="name" column="name" />
+        <result property="address" column="address" />
+        <result property="pricePerNight" column="price_per_night" />
+        <result property="description" column="description" />
+        <result property="lat" column="lat" />
+        <result property="lng" column="lng" />
+    </resultMap>
 
     <select id="searchBnbListPaging" resultMap="bnbResult">
         SELECT b.*
         FROM (SELECT ROWNUM rn, a.*
-              FROM (SELECT * FROM lodging 
-                    WHERE lodging_address LIKE '%' || #{keyword} || '%'
-                    ORDER BY lodging_id DESC) a
+              FROM (SELECT * FROM tbl_lodging
+                    WHERE address LIKE '%' || #{keyword} || '%'  -- name -> address
+                    ORDER BY lodging_id DESC
+                   ) a
              ) b
         WHERE b.rn BETWEEN (#{cri.pageNum} - 1) * #{cri.amount} + 1 AND #{cri.pageNum} * #{cri.amount}
     </select>
-  
+    
+    <select id="searchBnbListAll" resultMap="bnbResult">
+        SELECT * FROM tbl_lodging
+        WHERE address LIKE '%' || #{keyword} || '%' -- name -> address
+        ORDER BY lodging_id DESC
+    </select>
+
     <select id="getTotalCount" resultType="int">
-        SELECT count(*) 
-        FROM lodging
-        WHERE lodging_address LIKE '%' || #{keyword} || '%'
+        SELECT count(*) FROM tbl_lodging
+        WHERE address LIKE '%' || #{keyword} || '%' -- name -> address
+    </select>
+
+    <select id="getListInBoundsPaging" resultMap="bnbResult">
+        SELECT b.*
+        FROM (SELECT ROWNUM rn, a.*
+              FROM (SELECT * FROM tbl_lodging
+                    WHERE lat BETWEEN #{bounds.swLat} AND #{bounds.neLat}
+                      AND lng BETWEEN #{bounds.swLng} AND #{bounds.neLng}
+                    ORDER BY lodging_id DESC
+                   ) a
+             ) b
+        WHERE b.rn BETWEEN (#{cri.pageNum} - 1) * #{cri.amount} + 1 AND #{cri.pageNum} * #{cri.amount}
     </select>
     
-    <select id="selectListInBounds" resultMap="bnbResult" parameterType="map">
-        SELECT * FROM lodging
-        WHERE latitude IS NOT NULL 
-          AND longitude IS NOT NULL
-          AND latitude BETWEEN #{swLat} AND #{neLat}
-          AND longitude BETWEEN #{swLng} AND #{neLng}
+    <select id="getListInBounds" resultMap="bnbResult">
+        SELECT * FROM tbl_lodging
+        WHERE lat BETWEEN #{bounds.swLat} AND #{bounds.neLat}
+          AND lng BETWEEN #{bounds.swLng} AND #{bounds.neLng}
+    </select>
+    
+    <select id="getCountInBounds" resultType="int">
+        SELECT count(*) FROM tbl_lodging
+        WHERE lat BETWEEN #{bounds.swLat} AND #{bounds.neLat}
+          AND lng BETWEEN #{bounds.swLng} AND #{bounds.neLng}
     </select>
 
 </mapper>

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%-- ★★★ c:if 태그를 사용하기 위해 JSTL 라이브러리를 추가합니다. ★★★ --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -49,18 +48,18 @@
             
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
                 
-                <%-- 1. 비로그인 상태일 때 (세션에 logid가 비어있을 때) --%>
+                <%-- 비로그인 상태 --%>
                 <c:if test="${empty logid}">
                     <li><a href="loginForm.do">로그인</a></li>
                     <li><a href="signupForm.do">회원가입</a></li>
                 </c:if>
                 
-                <%-- 2. 로그인 상태일 때 (세션에 logid가 있을 때) --%>
+                <%-- 로그인 상태 --%>
                 <c:if test="${not empty logid}">
-                    <li><a href="myPage.do">${logName}님 환영합니다</a></li>
+                    <%-- ★★★ 이 부분의 href를 "userInfo.do"로 수정합니다 ★★★ --%>
+                    <li><a href="userInfo.do">${logName}님 환영합니다</a></li>
                     
-                    <%-- 2-1. 관리자(A)일 경우 추가 메뉴 표시 --%>
-                    <c:if test="${logRole == 'A'}">
+                    <c:if test="${logRole == 'admin'}">
                         <li><a href="adminPage.do">관리자 페이지</a></li>
                     </c:if>
             
@@ -97,7 +96,7 @@
                 </li>
               </ul>
             </div>
-            </div>
+          </div>
           <div class="col-lg-4">
             <div class="widget">
               <h3>Sources</h3>
@@ -118,7 +117,7 @@
                 <li><a href="#">Creative</a></li>
               </ul>
             </div>
-            </div>
+          </div>
           <div class="col-lg-4">
             <div class="widget">
               <h3>Links</h3>
@@ -127,30 +126,17 @@
                 <li><a href="#">About us</a></li>
                 <li><a href="#">Contact us</a></li>
               </ul>
-
               <ul class="list-unstyled social">
-                <li>
-                  <a href="#"><span class="icon-instagram"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-twitter"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-facebook"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-linkedin"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-pinterest"></span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon-dribbble"></span></a>
-                </li>
+                <li><a href="#"><span class="icon-instagram"></span></a></li>
+                <li><a href="#"><span class="icon-twitter"></span></a></li>
+                <li><a href="#"><span class="icon-facebook"></span></a></li>
+                <li><a href="#"><span class="icon-linkedin"></span></a></li>
+                <li><a href="#"><span class="icon-pinterest"></span></a></li>
+                <li><a href="#"><span class="icon-dribbble"></span></a></li>
               </ul>
             </div>
-            </div>
           </div>
+        </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
             <p>
@@ -168,7 +154,7 @@
           </div>
         </div>
       </div>
-      </div>
+    </div>
     <div id="overlayer"></div>
     <div class="loader">
       <div class="spinner-border" role="status">

@@ -13,3 +13,4 @@ public class LodgingVO {
     private double lng;
     private int pricePerNight;
 }
+

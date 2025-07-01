@@ -1,12 +1,13 @@
 package com.yedambnb.control;
 
 import java.io.IOException;
+
 import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.yedambnb.common.Control;
 import com.yedambnb.service.LodgingDetailService;
 import com.yedambnb.service.LodgingDetailServiceImpl;
@@ -16,10 +17,12 @@ import com.yedambnb.vo.LodgingVO;
 import com.yedambnb.vo.MPReviewVO;
 
 
+
 public class lodgingDetailControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		// 숙소별 조회
 		String lodgingNo = req.getParameter("lodging_no");
 		LodgingDetailService lsvc = new LodgingDetailServiceImpl();
@@ -39,8 +42,6 @@ public class lodgingDetailControl implements Control {
 			req.setAttribute("reviewList", reviewList);
 			req.getRequestDispatcher("bnb/lodgingList.tiles").forward(req, resp);
 		}
-
-	
 	}
 
 }

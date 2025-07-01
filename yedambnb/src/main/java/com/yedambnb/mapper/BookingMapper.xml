@@ -5,47 +5,43 @@
 
 <mapper namespace="com.yedambnb.mapper.BookingMapper">
 
-   <select id="getBookingsByUserId" resultType="com.yedambnb.vo.BookingVO">
-    SELECT
-        b.booking_id,
-        b.user_no,
-        b.accommodation_id,
+  <select id="getBookingsByUserId" resultType="com.yedambnb.vo.BookingVO">
+    SELECT 
+        b.booking_id, 
+        b.user_id, 
+        b.lodging_no, 
+        b.user_name,
+        b.price_per_night,
         b.check_in_date,
         b.check_out_date,
+        b.member_count,
+        b.fee,
         b.total_price,
         b.booking_status,
-        a.name,
-        a.price_per_night,
-        (SELECT p.photo_path
-         FROM   tbl_accommodation_photos p
-         WHERE  p.accommodation_id = b.accommodation_id AND ROWNUM = 1) AS photo_path,
-         
+        l.name as lodging_name,
         r.score,
-        r.comment_text
-    FROM
+        r.comment_text,
+        l.thumbnail_img -- ★★★★★ 이 줄을 추가합니다 ★★★★★
+    FROM 
         tbl_booking b
-    JOIN
-        tbl_user u ON b.user_no = u.user_no
-    JOIN
-        tbl_accommodations a ON b.accommodation_id = a.accommodation_id
+    LEFT JOIN 
+        tbl_review r ON (b.user_id = r.user_id AND b.lodging_no = r.lodging_no)
     LEFT JOIN
-        tbl_review r ON (b.user_no = r.user_no AND b.accommodation_id = r.accommodation_id)
-    WHERE
-        u.user_id = #{userId}
-    ORDER BY
-        b.check_in_date DESC
-  </select>
- 
-
-  <update id="updateBookingStatus" parameterType="map">
-    UPDATE TBL_BOOKING
-    SET    BOOKING_STATUS = #{status}
-    WHERE  BOOKING_ID = #{bookingId}
-  </update>
-
-
-<insert id="insertReservation">
+        tbl_lodging l ON (b.lodging_no = l.lodging_no)
+    WHERE 
+        b.user_id = #{userId}
+    ORDER BY b.check_in_date DESC
+</select>
+  
+<update id="updateBookingStatus" parameterType="int">
+    UPDATE tbl_booking
+    SET    booking_status = 'CANCELED'
+    WHERE  booking_id = #{bookingId}
+</update>
+  
+  <insert id="insertReservation">
 INSERT INTO tbl_booking (user_id, check_in_date, check_out_date, lodging_no, total_price, member_count)
 VALUES (#{userId}, #{checkInDate}, #{checkOutDate}, ${lodgingNo}, ${totalPrice}, ${memberCount})
 </insert>
+  
 </mapper>

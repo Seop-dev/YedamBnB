@@ -13,15 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedambnb.control.AddBookingControl;
 import com.yedambnb.control.AddReviewControl;
 import com.yedambnb.control.BnbListControl;
+import com.yedambnb.control.BoardListControl;
 import com.yedambnb.control.BookingListControl;
+import com.yedambnb.control.CheckIdControl;
+import com.yedambnb.control.GetLodgingListControl;
+import com.yedambnb.control.LoginControl;
+import com.yedambnb.control.LoginFormControl;
+import com.yedambnb.control.LogoutControl;
+import com.yedambnb.control.MainControl;
+import com.yedambnb.control.RegisterControl;
+import com.yedambnb.control.RegisterFormControl;
 import com.yedambnb.control.CancelBookingControl;
 import com.yedambnb.control.DeleteUserControl;
 import com.yedambnb.control.GetBnbControl;
 import com.yedambnb.control.GetListInBoundsControl;
-import com.yedambnb.control.GetLodgingListControl;
 import com.yedambnb.control.LoginForm;
 import com.yedambnb.control.Logout;
-import com.yedambnb.control.MainControl;
 import com.yedambnb.control.RemoveWishlistControl;
 import com.yedambnb.control.TempLoginAdmin;
 import com.yedambnb.control.TempLoginUser;
@@ -56,9 +63,16 @@ public class FrontController extends HttpServlet {
 		// ========================================================
 		map.put("/userInfo.do", new UserInfoControl());
 		map.put("/bookingList.do", new BookingListControl());
+		// =================== 로그인 및 회원등록(동원) ==========================
+		map.put("/signupForm.do", new RegisterFormControl()); // 회원가입 화면
+		map.put("/register.do", new RegisterControl()); // 회원가입 화면에서 데이터 전달 컨트롤
+		map.put("/loginForm.do", new LoginFormControl()); // 로그인 화면
+		map.put("/checkId.do", new CheckIdControl()); // id중복체크
+		map.put("/login.do", new LoginControl()); // 로그인페이지
 		map.put("/addReview.do", new AddReviewControl());
+		
+		
 		// ============ 숙소단건조회 ===================
-
 		map.put("/lodgingDetail.do", new lodgingDetailControl());
 		map.put("/addBooking.do", new AddBookingControl());
 
@@ -69,6 +83,7 @@ public class FrontController extends HttpServlet {
 
 		// 상세보기
 		map.put("/getBnb.do", new GetBnbControl());
+
 	}
 
 	@Override

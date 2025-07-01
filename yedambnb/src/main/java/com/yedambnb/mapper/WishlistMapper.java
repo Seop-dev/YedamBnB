@@ -1,12 +1,14 @@
+// WishlistMapper.java
 package com.yedambnb.mapper;
 
 import java.util.List;
 import com.yedambnb.vo.WishlistVO;
 
 public interface WishlistMapper {
-    // 특정 사용자의 위시리스트 목록을 조회하는 메소드
-    public List<WishlistVO> selectWishlist(int userNo);
+    // ▼▼▼ 메소드 이름을 getWishlist로 수정합니다 ▼▼▼
+    public List<WishlistVO> getWishlist(int userNo);
     
+
+    // 찜 해제 기능은 그대로 유지합니다.
     public int deleteWishlist(int wishlistId);
-    
 }

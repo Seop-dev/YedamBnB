@@ -5,27 +5,26 @@
 
 <mapper namespace="com.yedambnb.mapper.WishlistMapper">
 
-  <select id="selectWishlist" parameterType="int" resultType="com.yedambnb.vo.WishlistVO">
-    SELECT
-        w.wishlist_id,
-        w.user_no,
-        w.accommodation_id,
-        w.created_at,
-        a.name,
-        a.price_per_night,
-        (SELECT p.photo_path
-         FROM   tbl_accommodation_photos p
-         WHERE  p.accommodation_id = w.accommodation_id AND ROWNUM = 1) AS photo_path
-    FROM
-        tbl_wishlist w
-    JOIN
-        tbl_accommodations a ON w.accommodation_id = a.accommodation_id
-    WHERE
-        w.user_no = #{userNo}
-    ORDER BY
-        w.created_at DESC
-  </select>
-   <delete id="deleteWishlist" parameterType="int">
+   <select id="getWishlist" resultType="com.yedambnb.vo.WishlistVO">
+        SELECT 
+            w.wishlist_id,
+            w.user_no,
+            w.lodging_id,
+            w.created_at,
+            l.name,
+            l.price_per_night,
+            l.thumbnail_img
+        FROM 
+            tbl_wishlist w
+        JOIN 
+            tbl_lodging l ON w.lodging_id = l.lodging_id
+        WHERE 
+            w.user_no = #{userNo}
+        ORDER BY 
+            w.wishlist_id DESC
+    </select>
+    
+  <delete id="deleteWishlist" parameterType="int">
     DELETE FROM TBL_WISHLIST
     WHERE WISHLIST_ID = #{wishlistId}
   </delete>

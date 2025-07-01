@@ -12,4 +12,5 @@ public class LodgingVO {
     private double lat;
     private double lng;
     private int pricePerNight;
+    private String thumbnailImg;
 }

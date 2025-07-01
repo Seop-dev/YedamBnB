@@ -23,24 +23,27 @@ public class AddReviewControl implements Control {
     @Override
     public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-        String accommodationId = req.getParameter("accommodationId");
+        // [수정] bookingId 대신 lodgingId와 userId를 받습니다.
+        String lodgingId = req.getParameter("lodgingId");
         String userId = req.getParameter("userId");
         String score = req.getParameter("score");
         String content = req.getParameter("content");
 
-        // --- [수정] 이 부분이 추가/변경됩니다 ---
-        // 1. 리뷰를 작성하는 사용자의 user_no와 user_name을 알아내기 위해, 먼저 DB에서 사용자 정보를 가져옵니다.
+        // 리뷰를 작성하는 사용자의 user_name을 알아내기 위해, DB에서 사용자 정보를 가져옵니다.
         UserService userSvc = new UserServiceImpl();
-        UserVO userVO = userSvc.getUser(userId);
+        UserVO user = userSvc.getUser(userId);
 
-        // 2. 이제 MPReviewVO에 정확한 값들을 설정합니다.
+        // [수정] 새로운 MPReviewVO의 필드에 맞춰 값을 설정합니다.
         MPReviewVO reviewVO = new MPReviewVO();
-        reviewVO.setAccommodationId(Integer.parseInt(accommodationId));
+        reviewVO.setLodgingNo(Integer.parseInt(lodgingId)); // tbl_review는 lodging_no를 사용
+        reviewVO.setUserId(userId);
+
+        if (user != null) {
+            reviewVO.setUserName(user.getUserName());
+        }
+        
         reviewVO.setScore(Integer.parseInt(score));
         reviewVO.setCommentText(content);
-        reviewVO.setUserNo(userVO.getUserNo());     // 가져온 사용자 정보에서 userNo를 설정
-        reviewVO.setUserName(userVO.getUserName()); // 가져온 사용자 정보에서 userName을 설정
-        // ------------------------------------
 
         MPReviewService reviewSvc = new MPReviewServiceImpl();
         

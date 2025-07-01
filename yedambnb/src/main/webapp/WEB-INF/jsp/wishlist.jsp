@@ -1,41 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <main class="main-content">
-    <h1>위시리스트</h1>
+	<h1>위시리스트</h1>
 
-    <%-- 위시리스트가 비어있을 경우 --%>
-    <c:if test="${empty wishlist}">
-        <p>위시리스트에 담은 숙소가 없습니다.</p>
-    </c:if>
+	<c:if test="${empty wishlist}">
+		<p>위시리스트에 담은 숙소가 없습니다.</p>
+	</c:if>
 
-    <div class="wishlist-grid">
-        <%-- Controller가 넘겨준 wishlist를 반복하여 아이템을 생성 --%>
-        <c:forEach var="w" items="${wishlist}">
-            <div class="wishlist-item">
-                <div class="img-container">
-                    <img src="${pageContext.request.contextPath}/image/${w.photoPath}" alt="숙소 이미지">
-                    
-                    <%-- 찜 해제 버튼 (기능은 나중에 추가 가능) --%>
-                    <button class="btn-wishlist" data-wishlist-id="${w.wishlistId}">
-                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display:block;fill:rgba(0, 0, 0, 0.5);height:24px;width:24px;stroke:#fff;stroke-width:2;overflow:visible">
-                            <path d="m16 28c7-4.733 14-10 14-17a6.979 6.979 0 0 0 -1.222-4.267 7.006 7.006 0 0 0 -5.778-2.733c-2.404 0-4.606 1.156-6 2.94-1.393-1.783-3.596-2.94-6-2.94a7.006 7.006 0 0 0 -5.778 2.733 6.979 6.979 0 0 0 -1.222 4.267c0 7 7 12.267 14 17z"></path>
+	<div class="wishlist-grid">
+		<c:forEach var="w" items="${wishlist}">
+			<div class="wishlist-item">
+				<div class="img-container">
+
+					<%-- 썸네일 유무에 따라 동적으로 이미지를 표시하는 부분 --%>
+					<c:choose>
+						<c:when test="${not empty w.thumbnailImg}">
+							<img
+								src="${pageContext.request.contextPath}/image/${w.thumbnailImg}"
+								alt="${w.name}">
+						</c:when>
+						<c:otherwise>
+							<img
+								src="${pageContext.request.contextPath}/image/listing-default.png"
+								alt="기본 이미지">
+						</c:otherwise>
+					</c:choose>
+
+					<button class="btn-wishlist" data-wishlist-id="${w.wishlistId}">
+						<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
+							style="display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: #fff; stroke-width: 2; overflow: visible">
+                            <path
+								d="m16 28c7-4.733 14-10 14-17a6.979 6.979 0 0 0 -1.222-4.267 7.006 7.006 0 0 0 -5.778-2.733c-2.404 0-4.606 1.156-6 2.94-1.393-1.783-3.596-2.94-6-2.94a7.006 7.006 0 0 0 -5.778 2.733 6.979 6.979 0 0 0 -1.222 4.267c0 7 7 12.267 14 17z"></path>
                         </svg>
-                    </button>
-                </div>
-                <div class="content">
-                    <p class="title">${w.name}</p>
-                    <p class="price">
-                        ₩<fmt:formatNumber value="${w.pricePerNight}" pattern="#,###" /> / 1박
-                    </p>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
-</main>
-<%-- ... (<div class="wishlist-grid"> ... </div>) ... --%>
+					</button>
+				</div>
+				<div class="content">
+					<p class="title">${w.name}</p>
+					<p class="price">
+						₩
+						<fmt:formatNumber value="${w.pricePerNight}" pattern="#,###" />
+						/ 1박
+					</p>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
 </main>
 
 <script>

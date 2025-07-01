@@ -19,7 +19,7 @@ public class AddBookingControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  resp.setContentType("text/json;charset=utf-8");
+	  resp.setContentType("text/json;charset=utf-8");
 		
 	  String checkInDate = req.getParameter("check_in_date");
 	  String checkOutDate = req.getParameter("check_out_date");

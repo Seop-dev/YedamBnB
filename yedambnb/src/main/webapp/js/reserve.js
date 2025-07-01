@@ -14,7 +14,7 @@
  const url = 'addBooking.do?lodging_no='+lodgingNo+ '&check_in_date='+checkInDate+'&check_out_date='+checkOutDate + '&memberCount=' +memCount+ '&totalPrice=' + totalPrice;
   
   
-  console.log("url 은 : " + url);
+  console.log("url : " + url);
   console.log("lodgingNo: " , lodgingNo);
   console.log("checkInDate: ", checkInDate);
   console.log("checkOutDate: ", checkOutDate);

@@ -95,7 +95,7 @@
             <h2 class="heading text-primary">${lodging.name }</h2>
             <p class="meta">${lodging.address }</p>	
           <div class="mt-3">
-            <h5 class="text-primary" id="pricePerNight">${lodging.pricePerNight }</h5>1박
+            <h5 class="text-primary" id="pricePerNight">${lodging.pricePerNight }</h5><h3>1박</h3>
             <p class="text-black-50">${lodging.description}</p>
           </div>
           </div>
@@ -111,8 +111,11 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8a31d0d96330d4676d7c932270aa001"></script>
 <script>
 
-let lat = ${lodging.lat}
-let lng = ${lodging.lng}
+let lat = ${lodging.lat};
+let lng = ${lodging.lng};
+
+console.log(lat);
+console.log(lng);
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
@@ -149,7 +152,7 @@ marker.setMap(map);
     <div class="row">
       <div class="col-12">
         <div class="card p-4 mb-4 shadow-sm" id="booking">
-          <h5 class="mb-3">숙소 예약하기</h5>
+          <h5 class="mb-3">예약하기</h5>
           <div class="mb-3">
             <label for="checkin" class="form-label">체크인</label>
             <input type="date" class="form-control" id="checkIn" name="checkIn" required>

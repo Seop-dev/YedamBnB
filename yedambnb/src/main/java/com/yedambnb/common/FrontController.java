@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedambnb.control.AddBookingControl;
 import com.yedambnb.control.AddReviewControl;
 import com.yedambnb.control.BnbListControl;
 import com.yedambnb.control.BoardListControl;
@@ -72,8 +73,8 @@ public class FrontController extends HttpServlet {
 		
 		
 		// ============ 숙소단건조회 ===================
-
 		map.put("/lodgingDetail.do", new lodgingDetailControl());
+		map.put("/addBooking.do", new AddBookingControl());
 
 		map.put("/wishlist.do", new WishlistControl());
 		map.put("/removeWishlist.do", new RemoveWishlistControl());

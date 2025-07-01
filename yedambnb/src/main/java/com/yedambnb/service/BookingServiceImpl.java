@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.yedambnb.common.DataSource;
 import com.yedambnb.mapper.BookingMapper;
 import com.yedambnb.vo.BookingVO;
+import com.yedambnb.vo.ReservationVO;
 
 public class BookingServiceImpl implements BookingService {
 
@@ -38,5 +39,14 @@ public class BookingServiceImpl implements BookingService {
         // 성공적으로 1개의 행이 수정되었으면 true를, 아니면 false를 반환합니다.
         return mapper.updateBookingStatus(params) == 1;
     }
+
+	@Override
+	public boolean addReservation(ReservationVO rvo) {
+		int r = mapper.insertReservation(rvo);
+		if (r == 1) {
+			return true;
+		}
+		return false;
+	}
 
 }

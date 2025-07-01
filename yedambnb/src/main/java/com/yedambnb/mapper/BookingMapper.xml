@@ -32,9 +32,16 @@
         b.user_id = #{userId}
     ORDER BY b.check_in_date DESC
 </select>
+  
 <update id="updateBookingStatus" parameterType="int">
     UPDATE tbl_booking
     SET    booking_status = 'CANCELED'
     WHERE  booking_id = #{bookingId}
 </update>
+  
+  <insert id="insertReservation">
+INSERT INTO tbl_booking (user_id, check_in_date, check_out_date, lodging_no, total_price, member_count)
+VALUES (#{userId}, #{checkInDate}, #{checkOutDate}, ${lodgingNo}, ${totalPrice}, ${memberCount})
+</insert>
+  
 </mapper>

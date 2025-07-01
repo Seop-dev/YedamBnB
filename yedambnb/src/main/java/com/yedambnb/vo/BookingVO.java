@@ -17,10 +17,9 @@ public class BookingVO {
     private int fee;
     private int totalPrice;
     private String bookingStatus;
-
-    // JOIN을 통해 가져올 정보들
     private String lodgingName;
     private String commentText;
     private Integer score;
     private String thumbnailImg;
+
 }

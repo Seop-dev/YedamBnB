@@ -55,7 +55,6 @@ public class AddBookingControl implements Control {
 		BookingService svc = new BookingServiceImpl();
 		if(svc.addReservation(bvo)) {
 			out.print("{\"retCode\":\"Success\"}");  // 성공할 경우		  
-			
 		}
 	  // bvo.setMemberCount(memberCount);
 	  // bvo.setUserId(userId);

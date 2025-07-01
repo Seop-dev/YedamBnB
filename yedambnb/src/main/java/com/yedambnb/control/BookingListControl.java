@@ -26,5 +26,6 @@ public class BookingListControl implements Control {
         req.setAttribute("bookingList", list);
         req.setAttribute("logId", userId);  // 추가: JSP에서 ${logId} 사용 가능하도록
         req.getRequestDispatcher("user/booking.tiles").forward(req, resp);
+        System.out.println(list);
     }
 }

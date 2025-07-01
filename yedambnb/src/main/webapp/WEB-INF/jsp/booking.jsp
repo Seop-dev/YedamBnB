@@ -46,8 +46,7 @@
 					</p>
 					<p class="price">
 						₩
-						<fmt:formatNumber value="${b.pricePerNight}" pattern="#,###" />
-						/ 1박
+						<fmt:formatNumber value="${b.totalPrice}" pattern="#,###" />
 					</p>
 					<c:choose>
 						<c:when test="${b.bookingStatus == 'UPCOMING'}">
@@ -78,7 +77,6 @@
 					</c:choose>
 				</div>
 			</div>
-
 		</c:forEach>
 	</div>
 </main>

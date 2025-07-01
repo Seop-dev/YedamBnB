@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yedambnb.common.Control;
 import com.yedambnb.service.BookingService;
@@ -28,8 +29,8 @@ public class AddBookingControl implements Control {
 //  	  String userId = (String) session.getAttribute("userId");
 
 	  // 임시로 user01을 추가
-	  String userId = "user01";
-	  
+	  HttpSession session = req.getSession();
+	  String userId = (String) session.getAttribute("logId");
 	  System.out.println("숙소id " + lodgingNo);
 	  System.out.println("체크인 :" + checkOutDate);
 	  System.out.println("체크인 :" + checkInDate);

@@ -41,7 +41,7 @@ public class GetLodgingListControl implements Control {
         req.setAttribute("lodgingList", dummyList); // 나중에 dummyList를 실제 DB조회 결과인 list로 변경
 
         // 5. tiles.xml에 정의된 <definition name="getLodgingList">를 찾아 페이지를 구성합니다.
-        req.getRequestDispatcher("getLodgingList.tiles").forward(req, resp);
+        req.getRequestDispatcher("bnb/lodgingDetail.tiles").forward(req, resp);
 
     }
 

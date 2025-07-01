@@ -108,7 +108,7 @@
 <!-- 지도 -->
 <div id="map" style="width:100%;height:350px;"></div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8a31d0d96330d4676d7c932270aa001"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ca34376a28f1be6d003abb742bed410"></script>
 <script>
 
 let lat = ${lodging.lat};

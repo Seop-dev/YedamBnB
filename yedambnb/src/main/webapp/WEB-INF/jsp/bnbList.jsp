@@ -86,7 +86,7 @@
                     <c:forEach var="lodging" items="${bnbList}">
                         <div class="col-lg-6 col-md-12 mb-4">
                             <div class="property-item h-100">
-                                <a href="getBnb.do?lodging_no=${lodging.lodgingNo}" class="img">
+                                <a href="lodgingDetail.do?lodging_no=${lodging.lodgingNo}" class="img">
                                     <img src="image/${lodging.thumbnailImg}" alt="${lodging.name}" class="img-fluid" />
                                 </a>
                                 <div class="property-content">
@@ -96,7 +96,7 @@
                                         <span class="city d-block mb-3">${lodging.address}</span>
                                     </div>
                                     <div class="mt-auto">
-                                        <a href="getBnb.do?lodging_no=${lodging.lodgingNo}" class="btn btn-primary py-2 px-3">상세보기</a>
+                                        <a href="lodgingDetail.do?lodging_no=${lodging.lodgingNo}" class="btn btn-primary py-2 px-3">상세보기</a>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                     listHtml +=
                         '<div class="col-lg-6 col-md-12 mb-4">' +
                             '<div class="property-item h-100">' +
-                                '<a href="getBnb.do?lodging_no=' + lodging.lodgingNo + '" class="img">' +
+                                '<a href="lodgingDetail.do?lodging_no=' + lodging.lodgingNo + '" class="img">' +
                                     '<img src="image/' + lodging.thumbnailImg + '" alt="' + lodging.name + '" class="img-fluid" />' +
                                 '</a>' +
                                 '<div class="property-content">' +
@@ -179,7 +179,7 @@
                                         '<span class="city d-block mb-3">' + lodging.address + '</span>' +
                                     '</div>' +
                                     '<div class="mt-auto">' +
-                                       '<a href="getBnb.do?lodging_no=' + lodging.lodgingNo + '" class="btn btn-primary py-2 px-3">상세보기</a>' +
+                                       '<a href="lodgingDetail.do?lodging_no=' + lodging.lodgingNo + '" class="btn btn-primary py-2 px-3">상세보기</a>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
